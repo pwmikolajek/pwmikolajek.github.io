@@ -51,6 +51,7 @@ export const metadata: Metadata = {
     title,
     description,
     type: "website",
+    siteName: profile.name,
     locale: "en_GB",
     images: [ogImage],
   },

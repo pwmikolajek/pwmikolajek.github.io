@@ -24,7 +24,12 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return {
     title,
     description: project.oneLiner,
-    openGraph: { title, description: project.oneLiner, images: ["/og.png"] },
+    openGraph: {
+      title,
+      description: project.oneLiner,
+      siteName: profile.name,
+      images: ["/og.png"],
+    },
     twitter: { card: "summary_large_image", title, description: project.oneLiner, images: ["/og.png"] },
   };
 }

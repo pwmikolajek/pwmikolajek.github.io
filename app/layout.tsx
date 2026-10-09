@@ -40,7 +40,11 @@ const hanken = Hanken_Grotesk({
 const title = `${profile.name} — ${profile.tagline}`;
 const description = profile.metaDescription;
 
+const siteUrl = "https://pwmikolajek.github.io";
+const ogImage = { url: "/og.png", width: 1200, height: 630, alt: profile.name };
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title,
   description,
   openGraph: {
@@ -48,14 +52,20 @@ export const metadata: Metadata = {
     description,
     type: "website",
     locale: "en_GB",
+    images: [ogImage],
   },
   twitter: {
     card: "summary_large_image",
     title,
     description,
+    images: [ogImage.url],
   },
   icons: {
-    icon: "/pm-logo-white.svg",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "48x48" },
+    ],
+    apple: "/apple-touch-icon.png",
   },
 };
 

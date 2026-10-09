@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Geist, Geist_Mono, Sora, Hanken_Grotesk } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { TerminalProvider } from "@/components/terminal/TerminalProvider";
 import { profile } from "@/content/profile";
 import "./globals.css";
 
@@ -97,7 +98,7 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          {children}
+          <TerminalProvider>{children}</TerminalProvider>
         </ThemeProvider>
       </body>
     </html>

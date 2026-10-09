@@ -29,23 +29,23 @@ export const dealRoom: CaseStudy = {
     },
     {
       src: "/case-studies/deal-room/02-files.webp",
-      alt: "Discovery folder in the client space, showing document thumbnails and a searchable file browser",
+      alt: "Close-up of three Discovery file previews: the client landing page, site audit and workshop notes",
       caption:
         "Recognise the work before opening it. Files are grouped into plain-language folders and previewed using their actual content.",
       kind: "wide",
     },
     {
       src: "/case-studies/deal-room/03-audit.webp",
-      alt: "A website audit opened inside the client space, with its scores and detailed findings",
+      alt: "Close-up of the website audit’s performance, accessibility, best-practice and SEO scores, with critical and important findings",
       caption:
         "The document keeps its form. An audit opens in the space with its scores and findings; interactive HTML files can run here too.",
       kind: "wide",
     },
     {
       src: "/case-studies/deal-room/04-publishing.webp",
-      alt: "Staff view of the file library with upload, publishing and sharing controls",
+      alt: "Close-up of the staff upload dialog with a sample workshop PDF selected, its name and folder, and an explanation that uploads remain drafts",
       caption:
-        "The staff view adds the controls needed to prepare and publish the work. Draft files remain separate from what clients can see.",
+        "Publishing starts with a clear boundary. The upload dialog says who can see the file: it stays a draft for Human Made until someone deliberately publishes it to the client.",
       kind: "wide",
     },
   ],

@@ -1,247 +1,76 @@
 "use client";
 
-import * as React from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { Grid2X2, Timer, Users } from "lucide-react";
 
-const EASE_OUT = [0.22, 1, 0.36, 1] as const;
-// Near-critically damped: tiles snap onto the board, no wobble.
-const TILE_SPRING = { type: "spring", stiffness: 520, damping: 38, mass: 0.75 } as const;
-
-// Full-bleed board: 16 × 10 square cells exactly fill the card's 16:10 thumb.
-const COLS = 16;
-const ROWS = 10;
-const INK = "#1a1a1a";
-
-// MIKOLAJEK across row 4; PAWEL down col 8; the words share the A at (4,8).
-const ACROSS_ROW = 4;
-const DOWN_COL = 8;
-
-const ACROSS = [
-  { c: "M", v: 3, col: 3 },
-  { c: "I", v: 1, col: 4 },
-  { c: "K", v: 5, col: 5 },
-  { c: "O", v: 1, col: 6 },
-  { c: "L", v: 1, col: 7 },
-  { c: "A", v: 1, col: 8 },
-  { c: "J", v: 8, col: 9 },
-  { c: "E", v: 1, col: 10 },
-  { c: "K", v: 5, col: 11 },
+const PLAYED = [
+  { letter: "C", value: 3, row: 2, col: 1 },
+  { letter: "L", value: 1, row: 2, col: 2 },
+  { letter: "A", value: 1, row: 2, col: 3 },
+  { letter: "S", value: 1, row: 2, col: 4 },
+  { letter: "H", value: 4, row: 2, col: 5 },
+];
+const MOVE = [
+  { letter: "P", value: 3, row: 1, col: 3 },
+  { letter: "W", value: 4, row: 3, col: 3 },
 ];
 
-// The hover move, top to bottom, skipping the shared A at row 4.
-const DOWN = [
-  { c: "P", v: 3, row: 3 },
-  { c: "W", v: 4, row: 5 },
-  { c: "E", v: 1, row: 6 },
-  { c: "L", v: 1, row: 7 },
-];
-
-const DROP_DELAY = (i: number) => 0.05 + i * 0.045;
-// The board scores MIKOLAJEK once the last tile lands.
-const SCORE_DELAY = DROP_DELAY(DOWN.length - 1) + 0.2;
-
-function cellStyle(row: number, col: number): React.CSSProperties {
-  return {
-    left: `${(col / COLS) * 100}%`,
-    top: `${(row / ROWS) * 100}%`,
-    width: `${100 / COLS}%`,
-    height: `${100 / ROWS}%`,
-  };
-}
-
-/**
- * Letter Clash thumbnail. A board mid-game: MIKOLAJEK is already played
- * across, with dashed slots marking the next move. On hover PAWEL drops in
- * tile by tile through the shared A — the two words cross to spell the full
- * name, the A pulses as the words connect, and the move scores.
- */
+/** A cropped game board with an opponent's move arriving as live ghost tiles. */
 export function LetterClashThumb({ hovered }: { hovered: boolean }) {
-  const reduced = !!useReducedMotion();
-  const active = !!hovered;
-
-  return (
-    <div className="relative h-full w-full overflow-hidden bg-[#fcfbf8]">
-      {/* Camera layer: board and tiles zoom together */}
-      <motion.div
-        className="absolute inset-0"
-        initial={false}
-        animate={{ scale: active && !reduced ? 1.03 : 1 }}
-        transition={{ duration: 0.5, ease: EASE_OUT }}
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(0,0,0,0.045) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.045) 1px, transparent 1px)",
-          backgroundSize: `${100 / COLS}% ${100 / ROWS}%`,
-        }}
-        aria-hidden
-      >
-        {/* Dashed slots where the hover move will land */}
-        {DOWN.map(({ row }) => (
-          <div key={`ghost-${row}`} className="absolute" style={cellStyle(row, DOWN_COL)}>
-            <div
-              className="absolute"
-              style={{
-                inset: "9%",
-                borderRadius: 5,
-                border: "1.5px dashed rgba(21,21,21,0.16)",
-              }}
-            />
-          </div>
-        ))}
-
-        {/* An earlier move, played and faded */}
-        <RestTile row={1} col={13} c="H" v={4} muted />
-        <RestTile row={2} col={13} c="M" v={3} muted />
-
-        {/* MIKOLAJEK, already on the board */}
-        {ACROSS.map(({ c, v, col }) =>
-          col === DOWN_COL ? (
-            // The shared A pulses when the down word connects through it.
-            <motion.div
-              key={`across-${col}`}
-              className="absolute"
-              style={cellStyle(ACROSS_ROW, col)}
-              initial={false}
-              animate={active && !reduced ? { scale: [1, 1.12, 1] } : { scale: 1 }}
-              transition={{ duration: 0.32, ease: EASE_OUT, delay: 0.4 }}
-            >
-              <Tile c={c} v={v} />
-            </motion.div>
-          ) : (
-            <RestTile key={`across-${col}`} row={ACROSS_ROW} col={col} c={c} v={v} />
-          )
-        )}
-
-        {/* Hover: PAWEL drops in, top to bottom */}
-        {DOWN.map(({ c, v, row }, i) => (
-          <div key={`down-${row}`} className="absolute" style={cellStyle(row, DOWN_COL)}>
-            <motion.div
-              className="absolute inset-0"
-              initial={false}
-              animate={
-                reduced
-                  ? { y: "0%", scale: 1, opacity: active ? 1 : 0 }
-                  : {
-                      y: active ? "0%" : "-110%",
-                      scale: active ? 1 : 1.06,
-                      opacity: active ? 1 : 0,
-                    }
-              }
-              transition={
-                reduced
-                  ? { duration: 0.2 }
-                  : active
-                    ? {
-                        ...TILE_SPRING,
-                        delay: DROP_DELAY(i),
-                        opacity: { duration: 0.14, delay: DROP_DELAY(i) },
-                      }
-                    : { duration: 0.18, ease: EASE_OUT }
-              }
-            >
-              <Tile c={c} v={v} />
-            </motion.div>
-          </div>
-        ))}
-
-        {/* The move scores once the last tile lands */}
-        <motion.div
-          className="absolute z-10 flex items-center justify-center"
-          style={{
-            left: `${(9.3 / COLS) * 100}%`,
-            top: `${(7.15 / ROWS) * 100}%`,
-          }}
-          initial={false}
-          animate={
-            reduced
-              ? { opacity: active ? 1 : 0, scale: 1, y: 0 }
-              : {
-                  opacity: active ? 1 : 0,
-                  scale: active ? 1 : 0.6,
-                  y: active ? 0 : 6,
-                }
-          }
-          transition={
-            reduced
-              ? { duration: 0.2 }
-              : active
-                ? { ...TILE_SPRING, delay: SCORE_DELAY, opacity: { duration: 0.15, delay: SCORE_DELAY } }
-                : { duration: 0.15, ease: EASE_OUT }
-          }
-        >
-          <span
-            className="rounded-full px-2.5 py-1 text-[11px] font-semibold leading-none"
-            style={{
-              background: INK,
-              color: "#fcfbf8",
-              boxShadow: "0 8px 16px -8px rgba(0,0,0,0.5)",
-            }}
-          >
-            +10
-          </span>
-        </motion.div>
-      </motion.div>
-    </div>
-  );
-}
-
-function RestTile({
-  row,
-  col,
-  c,
-  v,
-  muted,
-}: {
-  row: number;
-  col: number;
-  c: string;
-  v: number;
-  muted?: boolean;
-}) {
-  return (
-    <div className="absolute" style={cellStyle(row, col)}>
-      <Tile c={c} v={v} muted={muted} />
-    </div>
-  );
-}
-
-function Tile({ c, v, muted }: { c: string; v: number; muted?: boolean }) {
   return (
     <div
-      className="absolute"
-      style={{
-        inset: "5%",
-        borderRadius: 5,
-        background: muted ? "#f1efe9" : "#ffffff",
-        opacity: muted ? 0.65 : 1,
-        boxShadow: muted
-          ? "0 0 0 1px rgba(0,0,0,0.06)"
-          : "0 1px 0 rgba(255,255,255,0.6) inset, 0 6px 12px -6px rgba(0,0,0,0.3), 0 0 0 1px rgba(0,0,0,0.05)",
-      }}
+      aria-hidden="true"
+      className="relative h-full w-full overflow-hidden"
+      style={{ containerType: "inline-size", background: "#e6bc79", color: "#30291f", fontFamily: "var(--font-hanken), sans-serif" }}
     >
-      {/* SVG so the lettering scales with the tile at any card size */}
-      <svg viewBox="0 0 100 100" className="block h-full w-full">
-        <text
-          x="50"
-          y="50"
-          dominantBaseline="central"
-          textAnchor="middle"
-          fontSize="48"
-          fontWeight="600"
-          fill={INK}
-        >
-          {c}
-        </text>
-        <text
-          x="80"
-          y="84"
-          textAnchor="middle"
-          fontSize="20"
-          fontWeight="600"
-          fill="rgba(21,21,21,0.4)"
-        >
-          {v}
-        </text>
-      </svg>
+      <div className="absolute left-[7%] top-[7%] flex items-center gap-[1.4cqw] text-[2.2cqw] font-semibold tracking-[0.04em]">
+        <Grid2X2 className="size-[3cqw]" strokeWidth={1.7} /> Letter Clash
+      </div>
+
+      <div className="absolute left-[9%] top-[13cqw] w-[82%] rounded-[2cqw] border border-black/10 bg-[#fcfbf8] p-[3cqw] shadow-[0_3cqw_6cqw_-3cqw_rgba(83,54,20,0.4)]">
+        <div className="flex items-center justify-between gap-[2cqw]">
+          <div className="flex items-center gap-[1.5cqw]">
+            <span className="grid size-[5cqw] place-items-center rounded-full bg-[#e8dcc6] text-[2.2cqw] font-semibold">M</span>
+            <div>
+              <div className="text-[2.7cqw] font-semibold leading-tight">Maya’s turn</div>
+              <div className="mt-[0.4cqw] text-[1.9cqw] text-[#796b55]">Live multiplayer</div>
+            </div>
+          </div>
+          <span className="flex items-center gap-[0.8cqw] rounded-full bg-[#e5eedf] px-[1.6cqw] py-[0.8cqw] text-[2.2cqw] font-semibold text-[#46603d]">
+            <Timer className="size-[2.6cqw]" strokeWidth={1.7} /> 20s
+          </span>
+        </div>
+
+        <div className="relative mt-[2.5cqw] grid grid-cols-7 gap-[0.5cqw] rounded-[1cqw] bg-[#e3dfd5] p-[0.6cqw]">
+          {Array.from({ length: 35 }, (_, i) => {
+            const row = Math.floor(i / 7);
+            const col = i % 7;
+            const played = PLAYED.find((tile) => tile.row === row && tile.col === col);
+            const move = MOVE.find((tile) => tile.row === row && tile.col === col);
+            const tile = played ?? (hovered ? move : undefined);
+            return (
+              <div
+                key={i}
+                className="relative flex h-[5.4cqw] items-center justify-center rounded-[0.5cqw]"
+                style={{
+                  background: tile ? (move ? "#e3ead8" : "#fffdf6") : "#f1eee6",
+                  boxShadow: played ? "0 0.4cqw 0 #cfc5b2, 0 0 0 1px #d6ccba" : undefined,
+                  outline: tile && move ? "1px dashed #8a9b75" : undefined,
+                }}
+              >
+                {tile && <>
+                  <span className="text-[3.2cqw] font-semibold leading-none" style={{ color: move ? "#7b8c67" : "#30291f" }}>{tile.letter}</span>
+                  <span className="absolute bottom-[0.4cqw] right-[0.6cqw] text-[1.2cqw] font-semibold text-[#8b806d]">{tile.value}</span>
+                </>}
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="mt-[2.3cqw] flex items-center justify-between gap-[1cqw] text-[2cqw]">
+          <span className="flex items-center gap-[0.9cqw] text-[#796b55]"><Users className="size-[2.5cqw]" strokeWidth={1.7} /> {hovered ? "Maya is placing tiles…" : "Two players. One board."}</span>
+          <span className="font-semibold">Maya 42 <span className="mx-[0.6cqw] text-[#b0a592]">:</span> Tom 38</span>
+        </div>
+      </div>
     </div>
   );
 }

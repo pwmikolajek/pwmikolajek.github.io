@@ -1,0 +1,27 @@
+name: Idea
+description: Something worth trying on the site. Not a bug, not scheduled.
+title: "[Idea]: "
+labels: ["idea"]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: The idea
+      description: What would you add or change? One or two sentences is fine.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why
+      description: What does it say about the work, or what does it make easier for a visitor?
+  - type: textarea
+    id: shape
+    attributes:
+      label: Rough shape
+      description: How might it work? Sketches, references and half-formed notes all count.
+  - type: textarea
+    id: open
+    attributes:
+      label: Open questions
+      description: Anything to figure out before building it.

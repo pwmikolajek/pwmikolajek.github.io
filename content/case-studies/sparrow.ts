@@ -44,9 +44,9 @@ export const sparrow: CaseStudy = {
     },
     {
       src: "/case-studies/sparrow/04-dashboard.webp",
-      alt: "Sparrow project dashboard showing a sample PDF's cover, version, page count, open comments and review and upload actions",
+      alt: "Close-up of a project card with the sample PDF cover, version, open comment count, and View & Comment and Upload Version actions",
       caption:
-        "The library keeps the current version and open feedback visible, with a direct route into the review or the next upload.",
+        "One project card keeps the current version and open feedback visible, with a direct route into the review or the next upload.",
       kind: "wide",
     },
   ],

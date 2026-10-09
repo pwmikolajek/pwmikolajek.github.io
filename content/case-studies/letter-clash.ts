@@ -22,21 +22,21 @@ export const letterClash: CaseStudy = {
   shots: [
     {
       src: "/case-studies/letter-clash/01-placing-a-word.webp",
-      alt: "Letter Clash mid-game: a 15 by 15 board with several words, a green time-bonus bar at the top, the scoreboard, and three tiles placed beside an existing letter with Submit Word and Clear buttons",
+      alt: "A four-player Letter Clash match with a connected board of words, STORM being placed, a 3x bonus on M, and eight seconds left on the amber turn clock",
       caption:
-        "A turn in progress. The bar is the clock and the remaining seconds become bonus points. Placed tiles are highlighted until you submit. Screenshots show a sample game between two demo players.",
+        "Eight seconds to make a move. Maya is building STORM around an existing T, with a 3× bonus on M and Tom twelve points ahead. Screenshots use a staged four-player demo in the actual game UI.",
       kind: "hero",
     },
     {
       src: "/case-studies/letter-clash/02-live-opponent-view.webp",
-      alt: "The same game from the opponent's side, with the other player's three in-progress tiles shown as faint ghosts on the board",
+      alt: "Close-up of the board from Tom’s view: four orange ghost tiles form STORM around an existing T, beside the previously played words CLASH and MAKER",
       caption:
-        "The other seat. While Maya places a word, Tom watches the tiles arrive as ghosts, before anything is scored.",
+        "The other seat, up close. Tom sees Maya’s orange ghost tiles form STORM before the move is submitted. The board makes the other player’s thinking visible in real time.",
       kind: "wide",
     },
     {
       src: "/case-studies/letter-clash/03-turn-prompt.webp",
-      alt: "A Your Turn prompt over the dimmed board with a Start My Turn button",
+      alt: "Close-up of the Your Turn prompt for Maya, with a Start My Turn button over the dimmed board and four-player scoreboard",
       caption:
         "When it's your move, a prompt takes you straight back into the game, even if you were working in another tab.",
       kind: "wide",

@@ -36,16 +36,16 @@ export const hmBrandGuidelines: CaseStudy = {
     },
     {
       src: "/case-studies/hm-brand-guidelines/03-editorial-voice.webp",
-      alt: "Human Made's Voice and Tone guidance with expandable editorial rules and examples",
+      alt: "Close-up of two expanded voice pillars, Specific, not vague and Open, not aloof, with contrasting use and avoid examples",
       caption:
         "The system covers how Human Made writes as well as how it looks. Voice rules, editorial principles and format playbooks also live in the skill's references.",
       kind: "wide",
     },
     {
-      src: "/case-studies/hm-brand-guidelines/04-tools-suite.webp",
-      alt: "Human Made tools hub linking to the business-card generator, Asset Library and Round Table",
+      src: "/case-studies/hm-brand-guidelines/04-business-card.webp",
+      alt: "Close-up of the business-card generator’s front and back previews, with a red name card and Human Made wordmark using fictional contact details",
       caption:
-        "The practical layer of the suite: tools that turn the brand system into a business card, an asset download or a team diagram.",
+        "The system becomes something you can make. The business-card generator applies the brand to live front and back previews, ready to export for print. This example uses fictional contact details.",
       kind: "wide",
     },
   ],

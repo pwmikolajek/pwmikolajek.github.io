@@ -1,0 +1,739 @@
+/* ============================================================
+   Paweł Mikołajek — LinkedIn carousel kit
+   Brand tokens lifted verbatim from app/globals.css (@theme)
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap");
+
+:root {
+  /* --- exact dark-theme anchors from globals.css --- */
+  --bg: #151515;
+  --fg: #e9e9e9;
+  --muted: #8a8a8a;
+  --hairline: #2a2a2a;
+  --hairline-strong: #3a3a3a;
+
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
+    monospace;
+  --font-display: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+
+  --radius-card: 14px;
+  --tracking-display: -0.02em;
+  --tracking-eyebrow: 0.16em;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* slide pixel dimensions (LinkedIn-spec) */
+  --post: 1080px;
+  --slide-w: 1080px;
+  --slide-h: 1350px;
+
+  /* semantic z-scale */
+  --z-grain: 1;
+  --z-content: 2;
+  --z-frame-ui: 30;
+  --z-nav: 50;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #0d0d0d;
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "ss01", "cv11";
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+/* ============================================================
+   Gallery chrome (not exported — the workspace around the art)
+   ============================================================ */
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-nav);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 14px 28px;
+  background: rgba(13, 13, 13, 0.82);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.site-nav .brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.site-nav .brand svg {
+  height: 24px;
+  width: auto;
+  color: var(--fg);
+}
+.site-nav .brand small {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  gap: 6px 14px;
+  flex-wrap: wrap;
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 200ms var(--ease);
+}
+.nav-links a:hover {
+  color: var(--fg);
+}
+.nav-links .sep {
+  color: var(--hairline-strong);
+}
+
+.intro {
+  max-width: 760px;
+  margin: 56px auto 8px;
+  padding: 0 28px;
+}
+.intro h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 1.04;
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+  margin: 0 0 18px;
+}
+.intro p {
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.65;
+  max-width: 60ch;
+  margin: 0 0 10px;
+}
+.intro .hint {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  color: var(--hairline-strong);
+  margin-top: 18px;
+}
+
+/* concept block heading in the workspace */
+.concept {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 64px 28px 24px;
+}
+.concept-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 26px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--hairline);
+}
+.concept-head .idx {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.concept-head h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  line-height: 1.05;
+  letter-spacing: var(--tracking-display);
+  margin: 0;
+}
+.concept-head .kind {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+.concept-head .dl-all {
+  margin-left: auto;
+}
+
+button.btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--fg);
+  background: transparent;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 999px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: background 200ms var(--ease), color 200ms var(--ease),
+    border-color 200ms var(--ease);
+}
+button.btn:hover {
+  background: var(--fg);
+  color: var(--bg);
+  border-color: var(--fg);
+}
+button.btn:disabled {
+  opacity: 0.5;
+  cursor: progress;
+}
+
+/* horizontal scroller for carousel slides */
+.rail {
+  display: flex;
+  gap: 28px;
+  overflow-x: auto;
+  padding-bottom: 18px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: var(--hairline-strong) transparent;
+}
+.rail::-webkit-scrollbar {
+  height: 10px;
+}
+.rail::-webkit-scrollbar-thumb {
+  background: var(--hairline-strong);
+  border-radius: 999px;
+}
+.posts-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+
+/* wrapper scales the true-size frame down to fit the workspace */
+.scaler {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+.scaler[data-kind="post"] {
+  width: 420px;
+  height: 420px;
+}
+.scaler[data-kind="slide"] {
+  width: 360px;
+  height: 450px;
+}
+.scaler .frame-wrap {
+  transform-origin: top left;
+}
+.scaler[data-kind="post"] .frame-wrap {
+  transform: scale(calc(420 / 1080));
+}
+.scaler[data-kind="slide"] .frame-wrap {
+  transform: scale(calc(360 / 1080));
+}
+
+.slide-cap {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.slide-cap .mini-dl {
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  padding: 3px 9px;
+  color: var(--muted);
+  cursor: pointer;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 200ms var(--ease), border-color 200ms var(--ease);
+}
+.slide-cap .mini-dl:hover {
+  color: var(--fg);
+  border-color: var(--hairline-strong);
+}
+
+/* ============================================================
+   THE FRAMES — these are what gets exported. True pixel sizes.
+   ============================================================ */
+
+.frame {
+  position: relative;
+  background: var(--bg);
+  color: var(--fg);
+  overflow: hidden;
+  isolation: isolate;
+}
+.frame.post {
+  width: var(--post);
+  height: var(--post);
+}
+.frame.slide {
+  width: var(--slide-w);
+  height: var(--slide-h);
+}
+
+/* signature grain overlay (verbatim treatment from globals.css) */
+.frame .grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: var(--z-grain);
+  background-image: radial-gradient(
+    circle at 50% 42%,
+    rgba(255, 255, 255, 0.025) 0,
+    transparent 60%
+  );
+  mix-blend-mode: overlay;
+}
+
+.frame .pad {
+  position: relative;
+  z-index: var(--z-content);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 96px;
+}
+.frame.slide .pad {
+  padding: 88px 88px 96px;
+}
+
+/* frame header: logo + eyebrow */
+.f-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.f-head .logo {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.f-head .logo svg {
+  height: 54px;
+  width: auto;
+  color: var(--fg);
+}
+.f-head .logo .name {
+  font-family: var(--font-display);
+  font-size: 28px;
+  letter-spacing: var(--tracking-display);
+  line-height: 1;
+}
+.f-head .logo .name span {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* the big spacer that pushes content to a deliberate baseline */
+.f-body {
+  margin-top: auto;
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+  margin: 0;
+}
+.d-xl {
+  font-size: 132px;
+  line-height: 0.96;
+}
+.d-lg {
+  font-size: 104px;
+  line-height: 0.98;
+}
+.d-md {
+  font-size: 78px;
+  line-height: 1.02;
+}
+.d-sm {
+  font-size: 58px;
+  line-height: 1.05;
+}
+
+.lede {
+  font-size: 30px;
+  line-height: 1.5;
+  color: var(--fg);
+  max-width: 30ch;
+  margin: 40px 0 0;
+}
+.lede.muted {
+  color: var(--muted);
+}
+.lede strong {
+  font-weight: 500;
+}
+
+.frame footer.f-foot {
+  position: relative;
+  z-index: var(--z-content);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 56px;
+  padding-top: 36px;
+  border-top: 1px solid var(--hairline);
+  font-family: var(--font-mono);
+  font-size: 18px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.frame footer.f-foot .handle {
+  color: var(--fg);
+}
+
+/* a thin label "underline" mark echoing the site's animated link */
+.markline {
+  display: inline-block;
+  padding-bottom: 4px;
+  border-bottom: 2px solid var(--fg);
+}
+
+/* number-led list (used in "5 things" posters) */
+.numlist {
+  margin: 44px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0;
+}
+.numlist li {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  align-items: baseline;
+  gap: 28px;
+  padding: 28px 0;
+  border-top: 1px solid var(--hairline);
+}
+.numlist li:last-child {
+  border-bottom: 1px solid var(--hairline);
+}
+.numlist .n {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.numlist .t {
+  font-family: var(--font-display);
+  font-size: 40px;
+  line-height: 1.1;
+  letter-spacing: var(--tracking-display);
+}
+.numlist .t small {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 21px;
+  line-height: 1.45;
+  letter-spacing: 0;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+/* five rows in a 1080 square: tighten so nothing clips */
+.numlist.tight {
+  margin-top: 36px;
+}
+.numlist.tight li {
+  grid-template-columns: 80px 1fr;
+  gap: 24px;
+  padding: 22px 0;
+}
+.numlist.tight .t {
+  font-size: 36px;
+}
+.numlist.tight .n {
+  font-size: 20px;
+}
+
+/* before / after split (mockups vs prototype) */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin-top: 44px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+.split > div {
+  padding: 44px 40px;
+}
+.split > div:first-child {
+  border-right: 1px solid var(--hairline);
+}
+.split .tag {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.split .big {
+  font-family: var(--font-display);
+  font-size: 46px;
+  line-height: 1.05;
+  letter-spacing: var(--tracking-display);
+  margin: 18px 0 14px;
+}
+.split p {
+  font-size: 21px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0;
+}
+.split .ghost {
+  opacity: 0.55;
+}
+
+/* step index for carousel slides */
+.step-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.step-meta .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--hairline-strong);
+}
+.step-meta .dot.on {
+  background: var(--fg);
+}
+.progress {
+  display: flex;
+  gap: 8px;
+}
+
+/* terminal-style code chip — Geist Mono, hairline box, no costume */
+.cmd {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 40px;
+  padding: 20px 26px;
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-card);
+  font-family: var(--font-mono);
+  font-size: 23px;
+  color: var(--fg);
+  background: rgba(255, 255, 255, 0.02);
+}
+.cmd .prompt {
+  color: var(--muted);
+}
+.cmd .caret {
+  width: 11px;
+  height: 26px;
+  background: var(--fg);
+  display: inline-block;
+  margin-left: 2px;
+  animation: blink 1.1s steps(1) infinite;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 40px;
+}
+.tools .chip {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  padding: 9px 18px;
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 19px;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 28px;
+}
+
+.slide-num {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* swipe affordance on cover slides */
+.swipe {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+.swipe .arrow {
+  font-size: 22px;
+  animation: nudge 1.6s var(--ease) infinite;
+}
+@keyframes nudge {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(6px);
+  }
+}
+
+/* day diary label */
+.day {
+  font-family: var(--font-mono);
+  font-size: 19px;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ============================================================
+   Entrance motion — on the workspace previews only.
+   Capture path forces the settled state (see export.js / .capture).
+   ============================================================ */
+.scaler .frame .pad > *,
+.scaler .frame footer {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: reveal 0.7s var(--ease) forwards;
+}
+.scaler:hover .frame .pad > *,
+.scaler.in-view .frame .pad > * {
+  animation-play-state: running;
+}
+.scaler .frame .pad > *:nth-child(2) {
+  animation-delay: 0.06s;
+}
+.scaler .frame .pad > *:nth-child(3) {
+  animation-delay: 0.12s;
+}
+.scaler .frame .pad > *:nth-child(4) {
+  animation-delay: 0.18s;
+}
+@keyframes reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* during capture, everything is settled and unscaled */
+.frame.capture .pad > *,
+.frame.capture footer {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+}
+.frame.capture .caret {
+  animation: none !important;
+  opacity: 1 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scaler .frame .pad > *,
+  .scaler .frame footer {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+  .cmd .caret,
+  .swipe .arrow {
+    animation: none;
+  }
+}
+
+/* toast for export feedback */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--fg);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  padding: 12px 20px;
+  border-radius: 999px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 240ms var(--ease), transform 240ms var(--ease);
+  z-index: 100;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}

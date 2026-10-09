@@ -7,7 +7,7 @@
  */
 
 export const ACTIVITY_END = "2026-10-09";
-const WEEKS = 53;
+const WEEKS = 27; // the last 26 weeks plus the current one
 
 const COUNTS: Record<string, number> = {
   "2025-10-30": 1,
@@ -57,7 +57,13 @@ const COUNTS: Record<string, number> = {
 export type ActivityDay = { date: string; count: number } | null;
 
 /** Columns are weeks (Sunday first); rows are days. Future days are null. */
-export function buildActivity(): { weeks: ActivityDay[][]; total: number } {
+export function buildActivity(): {
+  weeks: ActivityDay[][];
+  total: number;
+  year: number;
+  last30: number;
+  busiest: { date: string; count: number };
+} {
   const end = new Date(`${ACTIVITY_END}T00:00:00Z`);
   const start = new Date(end);
   start.setUTCDate(end.getUTCDate() - ((WEEKS - 1) * 7 + end.getUTCDay()));
@@ -80,7 +86,19 @@ export function buildActivity(): { weeks: ActivityDay[][]; total: number } {
     }
     weeks.push(days);
   }
-  return { weeks, total };
+
+  // Whole-year and recent figures come from every recorded day, not the window.
+  let year = 0;
+  let last30 = 0;
+  let busiest = { date: ACTIVITY_END, count: 0 };
+  for (const [date, count] of Object.entries(COUNTS)) {
+    const age = (end.getTime() - new Date(`${date}T00:00:00Z`).getTime()) / 864e5;
+    if (age < 0 || age >= 365) continue;
+    year += count;
+    if (age < 30) last30 += count;
+    if (count > busiest.count) busiest = { date, count };
+  }
+  return { weeks, total, year, last30, busiest };
 }
 
 export function levelFor(count: number) {

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { buildActivity, levelFor } from "@/content/activity";
 
-const { weeks, total } = buildActivity();
+const { weeks, year, last30, busiest } = buildActivity();
 
 const fmt = (iso: string) =>
   new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", {
@@ -12,15 +12,35 @@ const fmt = (iso: string) =>
     year: "numeric",
     timeZone: "UTC",
   });
+const fmtShort = (iso: string) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    timeZone: "UTC",
+  });
+const month = (iso: string) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", {
+    month: "short",
+    timeZone: "UTC",
+  });
+
+/** Month label for the first week whose Sunday starts a new month. */
+const monthLabels = weeks.map((days, w) => {
+  const first = days[0];
+  if (!first) return "";
+  const m = month(first.date);
+  const prev = w > 0 ? weeks[w - 1][0] : null;
+  return !prev || month(prev.date) !== m ? m : "";
+});
 
 type Tip = { x: number; y: number; text: string };
 
 export function PrActivity() {
   const wrap = React.useRef<HTMLDivElement>(null);
+  const grid = React.useRef<HTMLDivElement>(null);
   const [inView, setInView] = React.useState(false);
   const [tip, setTip] = React.useState<Tip | null>(null);
   const last = React.useRef<string>("");
-  const grid_ = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     const el = wrap.current;
@@ -45,13 +65,13 @@ export function PrActivity() {
 
   const onMove = (e: React.PointerEvent) => {
     const root = wrap.current;
-    const grid = grid_.current;
-    if (!root || !grid) return;
+    const g = grid.current;
+    if (!root || !g) return;
 
     // Work from pointer geometry, not e.target, so the gaps between cells
     // don't flicker the tooltip.
-    const gr = grid.getBoundingClientRect();
-    const gap = parseFloat(getComputedStyle(grid).columnGap) || 0;
+    const gr = g.getBoundingClientRect();
+    const gap = parseFloat(getComputedStyle(g).columnGap) || 0;
     const pitch = (gr.width + gap) / weeks.length;
     const fx = (e.clientX - gr.left) / pitch - 0.5;
     const fy = (e.clientY - gr.top) / pitch - 0.5;
@@ -59,7 +79,6 @@ export function PrActivity() {
 
     const w = Math.min(weeks.length - 1, Math.max(0, Math.round(fx)));
     const d = Math.min(6, Math.max(0, Math.round(fy)));
-
     const key = `${w}:${d}`;
     if (key === last.current) return;
     last.current = key;
@@ -79,44 +98,62 @@ export function PrActivity() {
       ref={wrap}
       className="relative"
       role="img"
-      aria-label={`Contribution graph: ${total} pull requests opened in the last 12 months`}
+      aria-label={`Pull request activity: ${last30} pull requests in the last 30 days, ${year} in the last year, busiest day ${busiest.count} on ${fmt(busiest.date)}. Chart shows the last six months.`}
     >
-      <div className="mb-3 flex items-baseline justify-between font-mono text-[11px] uppercase tracking-[var(--tracking-eyebrow)] text-[var(--muted)]">
-        <span>Pull requests opened</span>
-        <span>
-          <span className="font-tnum text-[var(--fg)]">{total}</span> · last 12 months
-        </span>
+      <div className="mb-6 font-mono text-[11px] uppercase tracking-[var(--tracking-eyebrow)] text-[var(--muted)]">
+        Pull requests opened
       </div>
 
-      <div
-        ref={grid_}
-        className="pr-graph flex gap-[2px] sm:gap-[3px]"
-        data-in={inView}
-        onPointerMove={onMove}
-        onPointerLeave={reset}
-      >
-        {weeks.map((days, w) => (
-          <div key={w} className="grid min-w-0 flex-1 grid-rows-7 gap-[2px] sm:gap-[3px]">
-            {days.map((day, d) => (
-              <span
-                key={d}
-                data-w={w}
-                data-d={d}
-                data-l={day ? levelFor(day.count) : "x"}
-                className="pr-cell"
-                style={{ "--w": w, "--d": d } as React.CSSProperties}
-              />
+      <div className="flex flex-col gap-10 md:flex-row md:items-start md:gap-14">
+        <div className="flex shrink-0 gap-10 md:w-[200px] md:flex-col md:gap-7">
+          <Stat value={last30} label="in the last 30 days" />
+          <Stat value={year} label="in the last year" />
+          <Stat value={busiest.count} label={`on the busiest day, ${fmtShort(busiest.date)}`} />
+        </div>
+
+        <div className="min-w-0 flex-1">
+          <div className="flex gap-[2px] sm:gap-1" aria-hidden>
+            {monthLabels.map((m, w) => (
+              <div key={w} className="min-w-0 flex-1">
+                <span className="block h-4 whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.1em] text-[var(--muted)]">
+                  {m}
+                </span>
+              </div>
             ))}
           </div>
-        ))}
-      </div>
 
-      <div className="mt-3 flex items-center justify-end gap-1.5 font-mono text-[10px] uppercase tracking-[var(--tracking-eyebrow)] text-[var(--muted)]">
-        Less
-        {[0, 1, 2, 3, 4].map((l) => (
-          <span key={l} data-l={l} className="pr-cell !size-[10px] !animate-none" />
-        ))}
-        More
+          <div
+            ref={grid}
+            className="pr-graph flex gap-[2px] sm:gap-1"
+            data-in={inView}
+            onPointerMove={onMove}
+            onPointerLeave={reset}
+          >
+            {weeks.map((days, w) => (
+              <div key={w} className="grid min-w-0 flex-1 grid-rows-7 gap-[2px] sm:gap-1">
+                {days.map((day, d) => (
+                  <span
+                    key={d}
+                    data-l={day ? levelFor(day.count) : "x"}
+                    className="pr-cell"
+                    style={{ "--w": w, "--d": d } as React.CSSProperties}
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-4 flex items-center justify-between font-mono text-[10px] uppercase tracking-[var(--tracking-eyebrow)] text-[var(--muted)]">
+            <span>Last 6 months</span>
+            <span className="flex items-center gap-1.5">
+              Less
+              {[0, 1, 2, 3, 4].map((l) => (
+                <span key={l} data-l={l} className="pr-cell !size-[10px] !animate-none" />
+              ))}
+              More
+            </span>
+          </div>
+        </div>
       </div>
 
       {tip && (
@@ -128,6 +165,17 @@ export function PrActivity() {
           {tip.text}
         </div>
       )}
+    </div>
+  );
+}
+
+function Stat({ value, label }: { value: number; label: string }) {
+  return (
+    <div>
+      <div className="font-display text-[clamp(2.25rem,4vw,3rem)] leading-none tracking-[var(--tracking-display)] text-[var(--fg)] font-tnum">
+        {value}
+      </div>
+      <div className="mt-2 text-[13px] leading-snug text-[var(--muted)]">{label}</div>
     </div>
   );
 }

@@ -31,8 +31,8 @@ export const projects: Project[] = [
     slug: "letter-clash",
     title: "Letter Clash",
     oneLiner:
-      "Real-time multiplayer word game built for the team — turn timer, persistent boards, magnet-feel tile interactions.",
-    role: "Design · Frontend",
+      "Real-time multiplayer word game built for the team — a 20-second turn clock, live ghost tiles from your opponent, and a server that owns the rules.",
+    role: "Design · Frontend · Backend",
     stack: ["React", "TypeScript", "Vite", "WebSocket", "SQLite"],
     year: "2025",
   },

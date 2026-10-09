@@ -1,6 +1,5 @@
 import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/Reveal";
-import { PrActivity } from "@/components/sections/PrActivity";
 import { ProjectCard } from "@/components/sections/ProjectCard";
 import { projects } from "@/content/projects";
 
@@ -15,12 +14,6 @@ export function SelectedWork() {
               A slice of the design-and-build work from the last year at
               Human Made — small tools, real users, every one in production.
             </p>
-          </div>
-        </Reveal>
-
-        <Reveal>
-          <div className="mt-14">
-            <PrActivity />
           </div>
         </Reveal>
 

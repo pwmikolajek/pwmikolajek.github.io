@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { BotLink } from "@/components/terminal/BotLink";
 
 type SiteHeaderProps = {
   links?: Array<{ href: string; label: string }>;
@@ -19,6 +20,7 @@ export function SiteHeader({ links = DEFAULT_LINKS }: SiteHeaderProps) {
         <Logo size={26} />
       </Link>
       <nav className="flex items-center gap-5 text-sm">
+        <BotLink />
         {links.map((link) => (
           <Link
             key={link.href}

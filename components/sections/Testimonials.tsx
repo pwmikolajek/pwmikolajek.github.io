@@ -11,7 +11,7 @@ export function Testimonials() {
           <SectionHeading eyebrow="Kind words" title="People I’ve worked with." />
         </Reveal>
 
-        <div className="mt-14 grid gap-px border-t border-l hairline md:grid-cols-2 bg-[var(--hairline)]">
+        <div className="mt-14 grid border-t border-l hairline md:grid-cols-2">
           {testimonials.map((t, i) => (
             <Reveal key={t.name} delay={(i % 2) * 0.06} className="bg-[var(--bg)]">
               <figure className="flex h-full flex-col gap-6 border-r border-b hairline p-8 sm:p-10">

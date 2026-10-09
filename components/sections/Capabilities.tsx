@@ -13,7 +13,7 @@ export function Capabilities() {
           <SectionHeading eyebrow="Capabilities" title="What I bring to a team." />
         </Reveal>
 
-        <div className="mt-16 grid gap-px border-t border-l hairline md:grid-cols-3 bg-[var(--hairline)]">
+        <div className="mt-16 grid border-t border-l hairline md:grid-cols-3">
           {capabilities.map((cap, i) => {
             const Art = ART[i];
             return (

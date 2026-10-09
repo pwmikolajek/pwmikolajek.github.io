@@ -24,7 +24,7 @@ export function Hero() {
         />
 
         <div className="grid min-h-[78vh] items-center gap-14 py-16 sm:py-24 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-12">
-          <div className="flex flex-col">
+          <div className="relative z-10 flex flex-col">
           <motion.span
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}

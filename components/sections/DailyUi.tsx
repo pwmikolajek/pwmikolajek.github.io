@@ -12,7 +12,7 @@ export function DailyUi() {
           <div className="flex flex-wrap items-end justify-between gap-6">
             <SectionHeading eyebrow="Daily UI" title="A shot a day." />
             <p className="max-w-[40ch] text-[var(--muted)]">
-              The Daily UI challenge — a self-set brief each day, designed and
+              The Daily UI challenge: a self-set brief each day, designed and
               shipped to Dribbble. Reps for the craft: typography, layout, and
               motion under a deadline.
             </p>

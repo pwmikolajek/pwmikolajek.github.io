@@ -15,8 +15,8 @@ export const experience: Role[] = [
     from: "Aug 2022",
     to: "Present",
     bullets: [
-      "Sole designer in the agency — designing and shipping in a fast-paced, cross-functional environment.",
-      "Created and maintained the central Figma design space — promoted as the repository for the agency and its product, Altis Cloud.",
+      "Sole designer in the agency, designing and shipping in a fast-paced, cross-functional environment.",
+      "Created and maintained the central Figma design space, promoted as the repository for the agency and its product, Altis Cloud.",
       "Designed UI components and prototypes; built motion-led marketing assets and brochures.",
       "Designed and helped build a portfolio of internal product tools, several of which are featured on this site.",
     ],

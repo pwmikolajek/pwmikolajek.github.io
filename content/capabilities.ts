@@ -8,7 +8,7 @@ export const capabilities: Capability[] = [
   {
     title: "Design",
     description:
-      "Product design from research to interface. I run in Figma — systems, components, prototypes — and I think in flows, not screens.",
+      "Product design from research to interface. I run in Figma (systems, components, prototypes) and I think in flows, not screens.",
     items: [
       "Figma",
       "Design systems",
@@ -21,7 +21,7 @@ export const capabilities: Capability[] = [
   {
     title: "Motion",
     description:
-      "Motion as part of product UI, not decoration. I move from storyboards in After Effects to production-ready Lottie that ships at any scale.",
+      "Motion is part of the product UI. I go from storyboards in After Effects to production-ready Lottie that ships at any scale.",
     items: [
       "After Effects",
       "Lottie",
@@ -34,7 +34,7 @@ export const capabilities: Capability[] = [
   {
     title: "Frontend",
     description:
-      "I write the front-end I design. Live prototypes built with Claude Code mean the team can use the thing — not just look at it.",
+      "I write the front-end I design. Live prototypes built with Claude Code mean the team can use the thing.",
     items: [
       "React",
       "TypeScript",

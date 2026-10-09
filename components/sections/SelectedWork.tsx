@@ -12,7 +12,7 @@ export function SelectedWork() {
             <SectionHeading eyebrow="Selected work" title="Internal tools, shipped." />
             <p className="max-w-[36ch] text-[var(--muted)]">
               A slice of the design-and-build work from the last year at
-              Human Made — small tools, real users, every one in production.
+              Human Made: small tools, real users, every one in production.
             </p>
           </div>
         </Reveal>

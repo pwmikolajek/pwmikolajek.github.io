@@ -137,8 +137,12 @@ a.link:hover {
   will-change: transform;
   backface-visibility: hidden;
 }
-.marquee-mask:hover .marquee-track {
+.marquee-mask[data-paused="true"] .marquee-track,
+.marquee-mask:focus-within .marquee-track {
   animation-play-state: paused;
+}
+@media (hover: hover) and (pointer: fine) {
+  .marquee-mask:hover .marquee-track { animation-play-state: paused; }
 }
 @keyframes marquee {
   from { transform: translate3d(0, 0, 0); }
@@ -162,6 +166,9 @@ a.link:hover {
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
   }
+}
+
+@media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
   .marquee-mask {
     mask-image: none;
     overflow-x: auto;
@@ -170,6 +177,7 @@ a.link:hover {
   }
   .marquee-track {
     animation: none !important;
+    will-change: auto;
     padding: 0 24px;
   }
   .marquee-dup { display: none; }

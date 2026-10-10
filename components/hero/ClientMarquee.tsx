@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { Avatar } from "@/components/Avatar";
 import { clients } from "@/content/capabilities";
@@ -126,14 +125,8 @@ export function ClientMarquee() {
         </div>
 
         <div id={testimonialId} aria-live="polite" aria-atomic="true">
-          <AnimatePresence mode="wait">
             {active && (
-              <motion.figure
-                key={active.name}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.15 }}
+              <figure
                 className="relative mx-6 mt-6 max-w-[560px] rounded-[var(--radius-card)] border border-[var(--hairline-strong)] bg-[var(--bg)] p-5 sm:mx-10"
               >
                 <button
@@ -156,9 +149,8 @@ export function ClientMarquee() {
                     </span>
                   </span>
                 </figcaption>
-              </motion.figure>
+              </figure>
             )}
-          </AnimatePresence>
         </div>
       </div>
     </div>

@@ -13,9 +13,17 @@ type Active = { quote: Testimonial; x: number; y: number };
 
 /**
  * Slow, seamless logo rail. Pauses on hover and shows a testimonial from
- * that client where there is one. Static and wrapped for reduced motion.
+ * that client where there is one. Manually scrollable for reduced motion.
  */
 export function ClientMarquee() {
+  const [reduceMotion, setReduceMotion] = React.useState(false);
+  React.useEffect(() => {
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduceMotion(preference.matches);
+    update();
+    preference.addEventListener("change", update);
+    return () => preference.removeEventListener("change", update);
+  }, []);
   const row = [...clients, ...clients];
   const stage = React.useRef<HTMLDivElement>(null);
   const [active, setActive] = React.useState<Active | null>(null);
@@ -42,11 +50,20 @@ export function ClientMarquee() {
 
       <div ref={stage} className="relative mt-10">
         <div
-          aria-hidden="true"
+          role="region"
+          aria-label="Client logos"
+          tabIndex={reduceMotion ? 0 : undefined}
+          onKeyDown={(event) => {
+            if (!reduceMotion) return;
+            if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+              event.preventDefault();
+              event.currentTarget.scrollLeft += event.key === "ArrowRight" ? 160 : -160;
+            }
+          }}
           data-hl={active ? "true" : "false"}
-          className="marquee-mask overflow-hidden [&[data-hl=true]_img]:opacity-30 [&[data-hl=true]_li:hover_img]:opacity-100"
+          className="marquee-mask overflow-hidden focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--fg)] [&[data-hl=true]_img]:opacity-30 [&[data-hl=true]_li:hover_img]:opacity-100"
         >
-          <div className="marquee-track flex w-max items-center">
+          <div aria-hidden="true" className="marquee-track flex w-max items-center">
             {[0, 1].map((copy) => (
               <ul
                 key={copy}

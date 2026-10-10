@@ -110,7 +110,7 @@ const commands: Command[] = [
         <Gap />
         {[...SECTIONS.map(([n, s]) => [n, s]), ["open", "go to a page or link, e.g. open sparrow"], ["theme", "dark, light, or toggle"], ["clear", "clear the screen (Ctrl+L)"], ["exit", "back to the site (Esc)"]].map(
           ([n, s]) => (
-            <div key={n} className="grid grid-cols-[9rem_1fr] gap-x-4">
+            <div key={n} className="grid grid-cols-[7rem_minmax(0,1fr)] gap-x-2 sm:grid-cols-[9rem_minmax(0,1fr)] sm:gap-x-4">
               <span>
                 <Run ctx={ctx} cmd={n}>
                   {n}

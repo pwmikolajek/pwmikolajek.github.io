@@ -146,6 +146,16 @@ a.link:hover {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* The code panel illustrates the type-editing sequence. Without motion,
+     present the finished introduction on its own, including before hydration. */
+  .hero-layout { grid-template-columns: minmax(0, 1fr); }
+  .hero-code-panel { display: none; }
+  .hero-intro,
+  .hero-glyph {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
   *,
   *::before,
   *::after {

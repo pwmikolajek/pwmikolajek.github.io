@@ -234,11 +234,19 @@ const commands: Command[] = [
             </div>
           )}
           <Gap />
+          <Heading>{study.problem}</Heading>
+          <Gap />
           <Block>{study.summary}</Block>
-          {study.paragraphs.map((p, i) => (
-            <React.Fragment key={i}>
+          {study.sections.map((section) => (
+            <React.Fragment key={section.title}>
               <Gap />
-              <Block>{p}</Block>
+              <Heading>{section.title}</Heading>
+              {section.paragraphs.map((paragraph, index) => (
+                <React.Fragment key={index}>
+                  <Gap />
+                  <Block>{paragraph}</Block>
+                </React.Fragment>
+              ))}
             </React.Fragment>
           ))}
           {study.shots.length > 0 && (

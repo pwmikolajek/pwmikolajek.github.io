@@ -48,8 +48,8 @@ export default async function WorkSlugPage({ params }: { params: Params }) {
 
         {study ? (
           <>
-            <CaseStudyHero hero={study.hero} summary={study.summary} />
-            <CaseStudyProse paragraphs={study.paragraphs} />
+            <CaseStudyHero hero={study.hero} problem={study.problem} />
+            <CaseStudyProse summary={study.summary} sections={study.sections} />
             <CaseStudyShots shots={study.shots} />
             <BackToWork />
           </>

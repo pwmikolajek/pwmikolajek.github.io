@@ -1,16 +1,31 @@
 import { Reveal } from "@/components/Reveal";
+import type { CaseStudy } from "@/content/case-studies/_types";
 
-export function CaseStudyProse({ paragraphs }: { paragraphs: string[] }) {
+export function CaseStudyProse({ summary, sections }: Pick<CaseStudy, "summary" | "sections">) {
   return (
-    <section className="py-20 sm:py-28">
-      <div className="mx-auto max-w-[68ch] space-y-6">
-        {paragraphs.map((p, i) => (
-          <Reveal key={i} delay={i * 0.04}>
-            <p
-              className="text-[17px] leading-[1.7] text-[var(--fg)]"
-              dangerouslySetInnerHTML={{ __html: renderInline(p) }}
-            />
-          </Reveal>
+    <section aria-label="Full case study" className="py-20 sm:py-28">
+      <div className="mx-auto max-w-[68ch] space-y-14">
+        <Reveal>
+          <p className="font-display text-[clamp(1.25rem,2vw,1.6rem)] leading-snug text-[var(--fg)]">
+            {summary}
+          </p>
+        </Reveal>
+        {sections.map((section) => (
+          <div key={section.title} className="space-y-6">
+            <Reveal>
+              <h2 className="font-display text-[clamp(1.5rem,3vw,2rem)] leading-tight tracking-[var(--tracking-display)]">
+                {section.title}
+              </h2>
+            </Reveal>
+            {section.paragraphs.map((paragraph, index) => (
+              <Reveal key={index}>
+                <p
+                  className="text-[17px] leading-[1.7] text-[var(--fg)]"
+                  dangerouslySetInnerHTML={{ __html: renderInline(paragraph) }}
+                />
+              </Reveal>
+            ))}
+          </div>
         ))}
       </div>
     </section>

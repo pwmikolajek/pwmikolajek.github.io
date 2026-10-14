@@ -10,15 +10,41 @@ export const sparrow: CaseStudy = {
     stack: ["React", "TypeScript", "Tailwind", "shadcn/ui", "PDF.js", "TipTap", "Express", "SQLite"],
     live: { label: "sparrow.tools.hmn.md", href: "https://sparrow.tools.hmn.md" },
   },
+  problem: "PDF feedback gets scattered across copies, drafts and email threads.",
   summary:
     "A shared PDF review tool for Human Made. Pin a comment to the detail you're discussing, keep the replies together, and resolve the thread in place. New drafts sit alongside the conversation, with links to either the latest version or the exact revision under review.",
-  paragraphs: [
-    "Reviewing a PDF as a team can turn one document into five marked-up copies and a long email thread. Someone then has to reconcile the notes, work out which draft each person read, and ask what still needs a decision. I built Sparrow to give the team one place to read the work, discuss it in context, and see what remains open.",
-    "The central interaction is a plain click on the page. A composer opens beside the point you've chosen, and the saved comment becomes a numbered pin. Replies and edits happen there too. The sidebar gives you a way to browse the conversation, filter to the current page, and jump to a note. Resolve and Reply stay visible on each thread, so the next action is available without hunting through a hover state.",
-    "That proximity took iteration. The first version placed a pin on the document but sent you to the sidebar to write, separating the comment from its context. I moved the composer onto the page, made it follow zoom and scroll, and adjusted its position near the viewport edges. A note can now attach to a precise spot or to the whole page, and its author can move it to another page. Draft protection and visible saving and error states help keep a stray click or failed request from losing the reviewer's work.",
-    "Versioning needed an equally clear contract. The current default carries comments, replies and resolution states forward at the same page number and position. Reviewers can correct their placement when the layout changes. I also built an optional page-matching mode that uses text fingerprints and similarity to suggest where comments belong, with uncertain matches left for review. Keeping these behaviours explicit matters: preserving the conversation is useful; presenting a guessed location as certain isn't.",
-    "Sharing makes the version choice visible. One link always opens the latest draft; another stays on the exact revision being discussed. The viewer labels older versions and offers a route back to the latest. On small screens, Pages, Document and Comments become separate panels so the document and the conversation each have room.",
-    "I designed and built the interface and backend: React, PDF.js and TipTap on the front end, with Express, SQLite and file storage behind it. Sparrow runs as an internal tool behind Human Made's Google sign-in. Recent work has gone into making repeat reviews dependable: clearer controls, recoverable drafts, explicit version links and feedback that survives new drafts.",
+  sections: [
+    {
+      title: "One place for the review",
+      paragraphs: [
+        "Reviewing a PDF as a team can turn one document into five marked-up copies and a long email thread. Someone then has to reconcile the notes, work out which draft each person read, and ask what still needs a decision. I built Sparrow to give the team one place to read the work, discuss it in context, and see what remains open.",
+      ],
+    },
+    {
+      title: "Keep the conversation on the page",
+      paragraphs: [
+        "The central interaction is a plain click on the page. A composer opens beside the point you've chosen, and the saved comment becomes a numbered pin. Replies and edits happen there too. The sidebar gives you a way to browse the conversation, filter to the current page, and jump to a note. Resolve and Reply stay visible on each thread, so the next action is available without hunting through a hover state.",
+        "That proximity took iteration. The first version placed a pin on the document but sent you to the sidebar to write, separating the comment from its context. I moved the composer onto the page, made it follow zoom and scroll, and adjusted its position near the viewport edges. A note can now attach to a precise spot or to the whole page, and its author can move it to another page. Draft protection and visible saving and error states help keep a stray click or failed request from losing the reviewer's work.",
+      ],
+    },
+    {
+      title: "Carry feedback across drafts",
+      paragraphs: [
+        "Versioning needed an equally clear contract. The current default carries comments, replies and resolution states forward at the same page number and position. Reviewers can correct their placement when the layout changes. I also built an optional page-matching mode that uses text fingerprints and similarity to suggest where comments belong, with uncertain matches left for review. Keeping these behaviours explicit matters: preserving the conversation is useful; presenting a guessed location as certain isn't.",
+      ],
+    },
+    {
+      title: "Make the version choice explicit",
+      paragraphs: [
+        "Sharing makes the version choice visible. One link always opens the latest draft; another stays on the exact revision being discussed. The viewer labels older versions and offers a route back to the latest. On small screens, Pages, Document and Comments become separate panels so the document and the conversation each have room.",
+      ],
+    },
+    {
+      title: "What shipped",
+      paragraphs: [
+        "I designed and built the interface and backend: React, PDF.js and TipTap on the front end, with Express, SQLite and file storage behind it. Sparrow runs as an internal tool behind Human Made's Google sign-in. Recent work has gone into making repeat reviews dependable: clearer controls, recoverable drafts, explicit version links and feedback that survives new drafts.",
+      ],
+    },
   ],
   shots: [
     {

@@ -8,7 +8,6 @@ export const letterClash: CaseStudy = {
     role: "Design · Frontend · Backend",
     year: "2025",
     stack: ["React", "TypeScript", "Vite", "Zustand", "react-dnd", "Express", "WebSocket", "SQLite"],
-    live: { label: "letter-clash.tools.hmn.md", href: "https://letter-clash.tools.hmn.md" },
   },
   problem: "How do you make a browser game feel like playing across a table?",
   summary:

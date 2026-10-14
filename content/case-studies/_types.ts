@@ -13,7 +13,6 @@ export type CaseStudy = {
     role: string;
     year: string;
     stack: string[];
-    live?: { label: string; href: string };
   };
   problem: string;
   summary: string;

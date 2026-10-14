@@ -8,7 +8,6 @@ export const sparrow: CaseStudy = {
     role: "Design · Frontend · Backend",
     year: "2026",
     stack: ["React", "TypeScript", "Tailwind", "shadcn/ui", "PDF.js", "TipTap", "Express", "SQLite"],
-    live: { label: "sparrow.tools.hmn.md", href: "https://sparrow.tools.hmn.md" },
   },
   problem: "PDF feedback gets scattered across copies, drafts and email threads.",
   summary:

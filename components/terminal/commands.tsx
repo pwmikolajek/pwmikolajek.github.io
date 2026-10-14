@@ -227,12 +227,6 @@ const commands: Command[] = [
             {study.hero.eyebrow} · {study.hero.role} · {study.hero.year}
           </Dim>
           <Dim>Stack: {study.hero.stack.join(", ")}</Dim>
-          {study.hero.live && (
-            <div>
-              <Dim>Live: </Dim>
-              <Ext href={study.hero.live.href}>{study.hero.live.label}</Ext>
-            </div>
-          )}
           <Gap />
           <Heading>{study.problem}</Heading>
           <Gap />

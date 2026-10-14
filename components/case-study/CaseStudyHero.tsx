@@ -23,13 +23,6 @@ export function CaseStudyHero({ hero, problem }: { hero: CaseStudy["hero"]; prob
           <Meta label="Stack" colSpan="md">
             {hero.stack.join(" · ")}
           </Meta>
-          {hero.live ? (
-            <Meta label="Live">
-              <a href={hero.live.href} target="_blank" rel="noreferrer" className="link [overflow-wrap:anywhere]">
-                {hero.live.label} ↗
-              </a>
-            </Meta>
-          ) : null}
         </dl>
       </Reveal>
     </header>

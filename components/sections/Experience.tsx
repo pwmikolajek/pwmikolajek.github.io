@@ -1,13 +1,23 @@
 import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/Reveal";
 import { experience } from "@/content/experience";
+import { CV_PATH } from "@/lib/cv";
 
 export function Experience() {
   return (
     <section id="experience" className="px-6 sm:px-10 py-28 sm:py-36 border-t hairline">
       <div className="mx-auto max-w-[1180px]">
         <Reveal>
-          <SectionHeading eyebrow="Experience" title="Where I’ve worked." />
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <SectionHeading eyebrow="Experience" title="Where I’ve worked." />
+            <a
+              href={CV_PATH}
+              download
+              className="link font-mono text-[12px] uppercase tracking-[var(--tracking-eyebrow)] text-[var(--muted)] transition-colors hover:text-[var(--fg)]"
+            >
+              Download CV (PDF)
+            </a>
+          </div>
         </Reveal>
 
         <ol className="mt-14 divide-y hairline border-t border-b hairline">

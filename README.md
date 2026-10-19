@@ -58,3 +58,15 @@ MDX isn't wired in yet — when it's needed, drop posts into `/content/posts/`,
 add a route at `app/blog/[slug]/page.tsx`, and reuse the existing
 `<SectionHeading />` + Reveal primitives. The content-file pattern scales the
 same way.
+
+## CV (PDF)
+
+The downloadable CV at `public/Pawel-Mikolajek-CV.pdf` is printed from the `/resume/` page, which reads the same `content/` data as the site. After changing experience, projects or skills, regenerate it with the dev server running:
+
+```bash
+npm run dev
+npm run resume                                # uses http://localhost:3000/resume/
+npm run resume -- http://localhost:54527/resume/  # if dev is on another port
+```
+
+It needs a local Chrome (set `CHROME_PATH` if it isn't in the default location). The page uses static system fonts and a single column so applicant-tracking systems can parse it; check the output with `pdftotext public/Pawel-Mikolajek-CV.pdf -`.

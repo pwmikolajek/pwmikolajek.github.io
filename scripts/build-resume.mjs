@@ -2,7 +2,8 @@
 // Prints the /resume/ page to public/Pawel-Mikolajek-CV.pdf with headless Chrome.
 // Run `npm run dev` first, then `npm run resume` (optionally pass another URL).
 import { execFileSync } from "node:child_process";
-import { existsSync, statSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { existsSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
 const url = process.argv[2] ?? "http://localhost:3000/resume/";
@@ -37,3 +38,9 @@ execFileSync(
 );
 
 console.log(`Wrote ${out} (${Math.round(statSync(out).size / 1024)} KB) from ${url}`);
+
+// Version the download link with the PDF's hash, so no one is served a cached old CV.
+const version = createHash("sha256").update(readFileSync(out)).digest("hex").slice(0, 8);
+const cvModule = fileURLToPath(new URL("../lib/cv.ts", import.meta.url));
+writeFileSync(cvModule, readFileSync(cvModule, "utf8").replace(/CV_VERSION = "[^"]*"/, `CV_VERSION = "${version}"`));
+console.log(`CV link version ${version}`);

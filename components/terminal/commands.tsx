@@ -7,7 +7,7 @@ import { experience } from "@/content/experience";
 import { testimonials } from "@/content/testimonials";
 import { books } from "@/content/books";
 import { dailyUi, dribbbleProfile } from "@/content/daily-ui";
-import { CV_PATH } from "@/lib/cv";
+import { CV_PATH, CV_URL } from "@/lib/cv";
 
 export type Ctx = {
   run: (command: string) => void;
@@ -291,7 +291,7 @@ const commands: Command[] = [
         <Heading>Where I&rsquo;ve worked</Heading>
         <div>
           <Dim>CV (PDF): </Dim>
-          <Ext href={CV_PATH}>{CV_PATH.slice(1)}</Ext>
+          <Ext href={CV_URL}>{CV_PATH.slice(1)}</Ext>
         </div>
         {experience.map((r) => (
           <div key={`${r.company}-${r.from}`} className="mt-4">
@@ -423,7 +423,7 @@ const commands: Command[] = [
       if (!target) return <Dim>Usage: open &lt;project | cv | email | linkedin | dribbble | site&gt;</Dim>;
       if (target === "site" || target === "home") return { action: "exit" } satisfies Action;
       if (target === "cv" || target === "resume") {
-        window.open(CV_PATH, "_blank", "noopener,noreferrer");
+        window.open(CV_URL, "_blank", "noopener,noreferrer");
         return <Dim>Opening the CV (PDF) in a new tab.</Dim>;
       }
       if (target === "email") {

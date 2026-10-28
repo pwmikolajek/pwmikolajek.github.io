@@ -10,7 +10,7 @@ export const dealRoom: CaseStudy = {
     stack: ["React", "TypeScript", "Tailwind", "Vite", "Base UI"],
   },
   summary:
-    "A shared client space for Human Made: the current files, the agreed plan, and a clear next step. I designed and built a working prototype that brings the client briefing and the team's publishing workflow into one place.",
+    "A shared client space for Human Made: the current files, the agreed plan, and a clear next step. I designed a working prototype and built it with Claude Code that brings the client briefing and the team's publishing workflow into one place.",
   paragraphs: [
     "An estimate becomes a proposal. The proposal gets revised. An audit, a diagram and a contract follow in separate email threads. For the person joining the conversation halfway through, the questions are simple: which file is current, what needs my attention, and who do I ask? Deal Room starts with those questions. The design goal was to let a client find the latest estimate and identify the next step, its owner and its date within a minute.",
     "The project explores two sides of the same relationship. The employee workspace brings rooms, documents, people and activity together, with a conversational assistant called Human. The client space narrows the focus to three pages: Overview, Files and Plan. I made the client's name lead, kept their Human Made contact in view, and gave the overview the rhythm of a briefing: what's changed, what happens next, and where to find the work. Internal deal stages and commercial notes stay in the employee experience.",

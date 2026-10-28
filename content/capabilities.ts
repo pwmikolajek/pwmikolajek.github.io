@@ -34,7 +34,7 @@ export const capabilities: Capability[] = [
   {
     title: "Frontend",
     description:
-      "I write the front-end I design. Live prototypes built with Claude Code mean the team can use the thing.",
+      "I build what I design, with AI writing most of the code. I direct it, review it and test it until the team can use the thing.",
     items: [
       "React",
       "TypeScript",

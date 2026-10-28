@@ -18,7 +18,7 @@ export const experience: Role[] = [
       "Joined as the agency’s only designer and, on my own initiative, grew the role beyond visual design into designing and building internal products end to end: interface, front end and backend.",
       "Designed and built Sparrow, a PDF review tool in production for the team, with pinned comments, threads resolved in place, and share links to the latest or an exact version (React, PDF.js, TipTap, Express, SQLite).",
       "Turned the Human Made brand guidelines from a static reference into a suite for people and AI agents: design tokens, editorial voice guidance, an agent skill for Claude Code, Claude.ai, ChatGPT and Slack, and generators for business cards, assets and team diagrams.",
-      "Prototyped Deal Room, a shared client space, in React and TypeScript so product decisions could be tested with working interactions instead of static screens.",
+      "Designed and built Workbench, the marketing team’s planning board, to replace their spreadsheets: a month calendar as home, a forward view of the year’s campaigns, a content calendar by publishing date, and a drafting room for undated ideas (Next.js, SQLite).",
       "Created and maintained the central Figma design space for the agency and Altis Cloud, and produced motion and marketing assets.",
     ],
   },

@@ -1,25 +1,19 @@
 import { Reveal } from "@/components/Reveal";
 import type { CaseStudy } from "@/content/case-studies/_types";
 
-export function CaseStudyHero({ hero, summary }: { hero: CaseStudy["hero"]; summary: string }) {
+export function CaseStudyHero({ hero, problem }: { hero: CaseStudy["hero"]; problem: string }) {
   return (
     <header className="flex flex-col gap-8 pt-20 sm:pt-28 pb-14 sm:pb-20 border-b hairline">
       <Reveal>
         <span className="font-mono text-[11px] uppercase tracking-[var(--tracking-eyebrow)] text-[var(--muted)]">
-          {hero.eyebrow}
+          {hero.title} · {hero.eyebrow}
         </span>
       </Reveal>
 
       <Reveal delay={0.05}>
-        <h1 className="font-display text-[clamp(2.5rem,7vw,5.5rem)] leading-[1.02] tracking-[var(--tracking-display)]">
-          {hero.title}
+        <h1 className="max-w-[22ch] font-display text-[clamp(2.25rem,6.5vw,5.5rem)] leading-[1.06] tracking-[var(--tracking-display)]">
+          {problem}
         </h1>
-      </Reveal>
-
-      <Reveal delay={0.12}>
-        <p className="max-w-[60ch] font-display text-[clamp(1.15rem,1.7vw,1.5rem)] leading-snug text-[var(--fg)]">
-          {summary}
-        </p>
       </Reveal>
 
       <Reveal delay={0.18}>
@@ -29,13 +23,6 @@ export function CaseStudyHero({ hero, summary }: { hero: CaseStudy["hero"]; summ
           <Meta label="Stack" colSpan="md">
             {hero.stack.join(" · ")}
           </Meta>
-          {hero.live ? (
-            <Meta label="Live">
-              <a href={hero.live.href} target="_blank" rel="noreferrer" className="link [overflow-wrap:anywhere]">
-                {hero.live.label} ↗
-              </a>
-            </Meta>
-          ) : null}
         </dl>
       </Reveal>
     </header>

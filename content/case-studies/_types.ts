@@ -13,9 +13,9 @@ export type CaseStudy = {
     role: string;
     year: string;
     stack: string[];
-    live?: { label: string; href: string };
   };
+  problem: string;
   summary: string;
-  paragraphs: string[];
+  sections: Array<{ title: string; paragraphs: string[] }>;
   shots: Shot[];
 };

@@ -137,8 +137,12 @@ a.link:hover {
   will-change: transform;
   backface-visibility: hidden;
 }
-.marquee-mask:hover .marquee-track {
+.marquee-mask[data-paused="true"] .marquee-track,
+.marquee-mask:focus-within .marquee-track {
   animation-play-state: paused;
+}
+@media (hover: hover) and (pointer: fine) {
+  .marquee-mask:hover .marquee-track { animation-play-state: paused; }
 }
 @keyframes marquee {
   from { transform: translate3d(0, 0, 0); }
@@ -146,20 +150,35 @@ a.link:hover {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* The code panel illustrates the type-editing sequence. Without motion,
+     present the finished introduction on its own, including before hydration. */
+  .hero-layout { grid-template-columns: minmax(0, 1fr); }
+  .hero-code-panel { display: none; }
+  .hero-intro,
+  .hero-glyph {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
   *,
   *::before,
   *::after {
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
   }
-  .marquee-mask { mask-image: none; }
+}
+
+@media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
+  .marquee-mask {
+    mask-image: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 12px;
+  }
   .marquee-track {
     animation: none !important;
-    width: auto;
-    flex-wrap: wrap;
-    justify-content: center;
+    will-change: auto;
     padding: 0 24px;
   }
   .marquee-dup { display: none; }
-  .marquee-track ul { flex-wrap: wrap; justify-content: center; row-gap: 24px; }
 }

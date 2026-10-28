@@ -9,15 +9,41 @@ export const dealRoom: CaseStudy = {
     year: "2026",
     stack: ["React", "TypeScript", "Tailwind", "Vite", "Base UI"],
   },
+  problem: "The latest file and the next step were buried in email threads.",
   summary:
     "A shared client space for Human Made: the current files, the agreed plan, and a clear next step. I designed a working prototype and built it with Claude Code that brings the client briefing and the team's publishing workflow into one place.",
-  paragraphs: [
-    "An estimate becomes a proposal. The proposal gets revised. An audit, a diagram and a contract follow in separate email threads. For the person joining the conversation halfway through, the questions are simple: which file is current, what needs my attention, and who do I ask? Deal Room starts with those questions. The design goal was to let a client find the latest estimate and identify the next step, its owner and its date within a minute.",
-    "The project explores two sides of the same relationship. The employee workspace brings rooms, documents, people and activity together, with a conversational assistant called Human. The client space narrows the focus to three pages: Overview, Files and Plan. I made the client's name lead, kept their Human Made contact in view, and gave the overview the rhythm of a briefing: what's changed, what happens next, and where to find the work. Internal deal stages and commercial notes stay in the employee experience.",
-    "The files are the work itself. An audit opens with its scores and recommendations; a proposal keeps its pricing table; an uploaded HTML prototype remains interactive. The file browser uses previews of the content so people can recognise what they're looking for before opening it. Replacing a file keeps its link, which means an email already sent can still lead to the current version.",
-    "The publishing model is a design decision too. A new space starts closed. Uploads arrive as drafts. Editors deliberately publish files and share the space, with a client preview to check what will be visible. They manage files and plan steps inside the same space they're preparing for the client. Each step names an owner and a date, or says they're still to agree; it can also link directly to the relevant file.",
-    "I built the less tidy moments into the prototype too: replacing a document, removing one that's linked from the plan, keeping entered text after a failed save, and retrying an upload. Human can propose document changes for staff to review before applying them. Working interactions made the product decisions concrete enough to discuss and revise, which static screens couldn't do.",
-    "The result is an interactive React and TypeScript prototype with fictional clients and sample content. It models the workflows in browser memory, and Human's replies are mocked. Authentication, server-side permissions and persistent storage remain work for a production build. What you see here is the product model, interface and interaction design, built in code.",
+  sections: [
+    {
+      title: "The brief",
+      paragraphs: [
+        "An estimate becomes a proposal. The proposal gets revised. An audit, a diagram and a contract follow in separate email threads. For the person joining the conversation halfway through, the questions are simple: which file is current, what needs my attention, and who do I ask? Deal Room starts with those questions. The design goal was to let a client find the latest estimate and identify the next step, its owner and its date within a minute.",
+      ],
+    },
+    {
+      title: "A focused client view",
+      paragraphs: [
+        "The project explores two sides of the same relationship. The employee workspace brings rooms, documents, people and activity together, with a conversational assistant called Human. The client space narrows the focus to three pages: Overview, Files and Plan. I made the client's name lead, kept their Human Made contact in view, and gave the overview the rhythm of a briefing: what's changed, what happens next, and where to find the work. Internal deal stages and commercial notes stay in the employee experience.",
+        "The files are the work itself. An audit opens with its scores and recommendations; a proposal keeps its pricing table; an uploaded HTML prototype remains interactive. The file browser uses previews of the content so people can recognise what they're looking for before opening it. Replacing a file keeps its link, which means an email already sent can still lead to the current version.",
+      ],
+    },
+    {
+      title: "Publishing with clear boundaries",
+      paragraphs: [
+        "The publishing model is a design decision too. A new space starts closed. Uploads arrive as drafts. Editors deliberately publish files and share the space, with a client preview to check what will be visible. They manage files and plan steps inside the same space they're preparing for the client. Each step names an owner and a date, or says they're still to agree; it can also link directly to the relevant file.",
+      ],
+    },
+    {
+      title: "Working through the difficult moments",
+      paragraphs: [
+        "I built the less tidy moments into the prototype too: replacing a document, removing one that's linked from the plan, keeping entered text after a failed save, and retrying an upload. Human can propose document changes for staff to review before applying them. Working interactions made the product decisions concrete enough to discuss and revise, which static screens couldn't do.",
+      ],
+    },
+    {
+      title: "The prototype and what comes next",
+      paragraphs: [
+        "The result is an interactive React and TypeScript prototype with fictional clients and sample content. It models the workflows in browser memory, and Human's replies are mocked. Authentication, server-side permissions and persistent storage remain work for a production build. What you see here is the product model, interface and interaction design, built in code.",
+      ],
+    },
   ],
   shots: [
     {

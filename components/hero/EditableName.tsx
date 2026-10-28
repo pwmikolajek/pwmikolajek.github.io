@@ -141,7 +141,7 @@ function Glyph({
   return (
     <motion.span
       aria-hidden
-      className="relative inline-block"
+      className="hero-glyph relative inline-block"
       style={{ marginLeft }}
       initial={{ opacity: 0, y: "0.4em" }}
       animate={{ opacity: 1, y: 0 }}

@@ -8,17 +8,47 @@ export const workbench: CaseStudy = {
     role: "Design · Frontend · Backend",
     year: "2026",
     stack: ["Next.js", "React", "TypeScript", "Tailwind", "shadcn/ui", "dnd-kit", "SQLite", "Drizzle"],
-    live: { label: "workbench.tools.hmn.md", href: "https://workbench.tools.hmn.md" },
   },
+  problem: "The marketing plan was split across spreadsheets, tabs and personal to-do lists.",
   summary:
     "A shared planning board for Human Made's marketing team, built to replace the spreadsheets they planned in. A month calendar is home. Around it sit a forward view of the year's campaigns, a content calendar by publishing date, and a drafting room for ideas that don't have a date yet.",
-  paragraphs: [
-    "The marketing team planned in three places: a forward-view spreadsheet for the year, a content calendar tab for what goes out when, and personal to-do lists for the work in between. Each held part of the picture, none held all of it, and keeping them in step was its own job. I built Workbench to answer the team's three questions in one tool: what do I make and by when, what goes out on which day and channel, and what is coming down the line this year.",
-    "The calendar is home. Tasks sit on their due day and drag to a new one. A task carries everything needed to do it: project, campaign, priority, channel, subtasks, notes, files, and comments with @tags that reach the team in Slack. Every view filters by assignee and channel, and the calendar dims what doesn't match rather than hiding it, so the shape of the month stays readable while you look at your own work.",
-    "The forward view answers the director's question. The planning year runs across, April to March, and campaigns sit as bars in lanes: partner activity, events, hero content, always-on work. Drag a bar to move it, drag an end to change its dates, draw across empty space to start one; the keyboard does the same. Tentative campaigns are hatched. Moving a campaign offers to take its unfinished tasks along, and a row at the bottom counts posts scheduled each month against a target per channel.",
-    "The content calendar came from separating two dates. Due is when the work has to be done; publishes is when it goes out. Giving a task both meant the content marketer could see the month as a list of days with the posts on each, by publishing date, with a status that falls out of what's already known: pending, ready to publish, or published. Links to the copy and the live post sit on the row, a small month overview shows the shape at a glance, and a few notes per month replace a tab nobody read.",
-    "Ideas needed somewhere to grow before they earned a date. The drafting room is a bench for undated work, organised by what it is for: audience growth, lead generation, pipeline acceleration, the rest. Each idea has a stage and a name beside it, and \"Give it a date\" moves it onto the schedule. Drafts stay out of every other view, the read API and Slack, so the schedule only ever shows what's real.",
-    "The team is three editors and a company that reads. Editors change things; everyone else with a company account sees everything but touches nothing, and every check runs on the server, not just in the interface. A read-only API lets the @human Slack assistant answer questions about the plan, and a small command line handles bulk changes. The database is one SQLite file on a persistent volume, backed up before any migration. I designed all of it and built it with Claude Code, directing and reviewing the code it wrote: Next.js and React on the front end, server actions and Drizzle over SQLite behind them, deployed on Human Made's internal tools platform behind Google sign-in. The screenshots here use a fictional team and sample content.",
+  sections: [
+    {
+      title: "Three places, none of them whole",
+      paragraphs: [
+        "The marketing team planned in three places: a forward-view spreadsheet for the year, a content calendar tab for what goes out when, and personal to-do lists for the work in between. Each held part of the picture, none held all of it, and keeping them in step was its own job. I built Workbench to answer the team's three questions in one tool: what do I make and by when, what goes out on which day and channel, and what is coming down the line this year.",
+      ],
+    },
+    {
+      title: "The calendar is home",
+      paragraphs: [
+        "The calendar is home. Tasks sit on their due day and drag to a new one. A task carries everything needed to do it: project, campaign, priority, channel, subtasks, notes, files, and comments with @tags that reach the team in Slack. Every view filters by assignee and channel, and the calendar dims what doesn't match rather than hiding it, so the shape of the month stays readable while you look at your own work.",
+      ],
+    },
+    {
+      title: "The year on one screen",
+      paragraphs: [
+        "The forward view answers the director's question. The planning year runs across, April to March, and campaigns sit as bars in lanes: partner activity, events, hero content, always-on work. Drag a bar to move it, drag an end to change its dates, draw across empty space to start one; the keyboard does the same. Tentative campaigns are hatched. Moving a campaign offers to take its unfinished tasks along, and a row at the bottom counts posts scheduled each month against a target per channel.",
+      ],
+    },
+    {
+      title: "Two dates, not one",
+      paragraphs: [
+        "The content calendar came from separating two dates. Due is when the work has to be done; publishes is when it goes out. Giving a task both meant the content marketer could see the month as a list of days with the posts on each, by publishing date, with a status that falls out of what's already known: pending, ready to publish, or published. Links to the copy and the live post sit on the row, a small month overview shows the shape at a glance, and a few notes per month replace a tab nobody read.",
+      ],
+    },
+    {
+      title: "A place for ideas before they have a date",
+      paragraphs: [
+        "Ideas needed somewhere to grow before they earned a date. The drafting room is a bench for undated work, organised by what it is for: audience growth, lead generation, pipeline acceleration, the rest. Each idea has a stage and a name beside it, and \"Give it a date\" moves it onto the schedule. Drafts stay out of every other view, the read API and Slack, so the schedule only ever shows what's real.",
+      ],
+    },
+    {
+      title: "What shipped",
+      paragraphs: [
+        "The team is three editors and a company that reads. Editors change things; everyone else with a company account sees everything but touches nothing, and every check runs on the server, not just in the interface. A read-only API lets the @human Slack assistant answer questions about the plan, and a small command line handles bulk changes. The database is one SQLite file on a persistent volume, backed up before any migration. I designed all of it and built it with Claude Code, directing and reviewing the code it wrote: Next.js and React on the front end, server actions and Drizzle over SQLite behind them, deployed on Human Made's internal tools platform behind Google sign-in. The screenshots here use a fictional team and sample content.",
+      ],
+    },
   ],
   shots: [
     {

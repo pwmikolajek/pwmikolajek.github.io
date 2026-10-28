@@ -9,6 +9,7 @@ type Entry = { id: number; cmd: string | null; node: React.ReactNode };
 
 const QUICK = ["help", "about", "work", "capabilities", "experience", "kind-words", "books", "contact"];
 const PROMPT = "visitor@pawel:~$";
+const DESKTOP_INPUT = "(min-width: 640px) and (hover: hover) and (pointer: fine)";
 
 function Banner({ ctx }: { ctx: Ctx }) {
   return (
@@ -38,6 +39,8 @@ export function Terminal({ onExit }: { onExit: () => void }) {
   const { theme, setTheme } = useTheme();
   const [entries, setEntries] = React.useState<Entry[]>([]);
   const [value, setValue] = React.useState("");
+  const dialogRef = React.useRef<HTMLDivElement>(null);
+  const [viewport, setViewport] = React.useState<{ height: number; top: number } | null>(null);
   const inputRef = React.useRef<HTMLInputElement>(null);
   const scrollRef = React.useRef<HTMLDivElement>(null);
   const history = React.useRef<string[]>([]);
@@ -87,8 +90,23 @@ export function Terminal({ onExit }: { onExit: () => void }) {
       greeted.current = true;
       append(null, <Banner ctx={ctx} />);
     }
-    inputRef.current?.focus();
+    if (window.matchMedia(DESKTOP_INPUT).matches) inputRef.current?.focus();
+    else dialogRef.current?.focus({ preventScroll: true });
   }, [append, ctx]);
+
+  // iOS keyboards shrink the visual viewport rather than the layout viewport.
+  React.useEffect(() => {
+    const visible = window.visualViewport;
+    if (!visible) return;
+    const update = () => setViewport({ height: visible.height, top: visible.offsetTop });
+    update();
+    visible.addEventListener("resize", update);
+    visible.addEventListener("scroll", update);
+    return () => {
+      visible.removeEventListener("resize", update);
+      visible.removeEventListener("scroll", update);
+    };
+  }, []);
 
   // Keep the latest output in view.
   React.useEffect(() => {
@@ -152,20 +170,27 @@ export function Terminal({ onExit }: { onExit: () => void }) {
 
   return (
     <div
+      ref={dialogRef}
+      tabIndex={-1}
       role="dialog"
       aria-modal="true"
       aria-label="Terminal view of the site"
-      className="fixed inset-0 z-[100] flex flex-col bg-[var(--bg)] font-mono text-[13px] leading-[1.65] text-[var(--fg)] sm:text-[14px]"
-      onClick={() => {
-        if (!window.getSelection()?.toString()) inputRef.current?.focus();
+      className="fixed inset-x-0 top-0 z-[100] flex h-[100dvh] flex-col bg-[var(--bg)] font-mono text-[12px] leading-[1.55] text-[var(--fg)] outline-none [-webkit-text-size-adjust:100%] sm:text-[14px] sm:leading-[1.65]"
+      style={viewport ? { height: viewport.height, top: viewport.top } : undefined}
+      onClick={(event) => {
+        if (
+          window.matchMedia(DESKTOP_INPUT).matches &&
+          !(event.target as HTMLElement).closest("button, a, input, label") &&
+          !window.getSelection()?.toString()
+        ) inputRef.current?.focus();
       }}
     >
-      <div className="flex items-center justify-between border-b hairline px-5 py-3 text-[11px] uppercase tracking-[var(--tracking-eyebrow)] text-[var(--muted)] sm:px-8">
+      <div className="flex shrink-0 items-center justify-between border-b hairline px-4 py-2 text-[11px] uppercase tracking-[var(--tracking-eyebrow)] text-[var(--muted)] sm:px-8 sm:py-3">
         <span>Bot mode</span>
         <button
           type="button"
           onClick={onExit}
-          className="rounded-full border hairline px-3 py-1 transition-colors hover:border-[var(--fg)] hover:text-[var(--fg)]"
+          className="min-h-9 rounded-full border hairline px-3 py-1 transition-colors hover:border-[var(--fg)] hover:text-[var(--fg)]"
         >
           Exit <span aria-hidden>· Esc</span>
         </button>
@@ -176,7 +201,7 @@ export function Terminal({ onExit }: { onExit: () => void }) {
         role="log"
         aria-live="polite"
         aria-relevant="additions"
-        className="flex-1 overflow-y-auto px-5 py-6 sm:px-8"
+        className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-4 [overflow-wrap:anywhere] sm:px-8 sm:py-6"
       >
         <div className="mx-auto max-w-[92ch]">
           {entries.map((e) => (
@@ -190,8 +215,12 @@ export function Terminal({ onExit }: { onExit: () => void }) {
             </div>
           ))}
 
+        </div>
+      </div>
+
+      <div className="shrink-0 border-t hairline px-4 py-2 sm:px-8 sm:py-3">
           <form
-            className="flex items-center gap-2"
+            className="mx-auto flex max-w-[92ch] items-center gap-2"
             onSubmit={(ev) => {
               ev.preventDefault();
               submit();
@@ -212,20 +241,20 @@ export function Terminal({ onExit }: { onExit: () => void }) {
               spellCheck={false}
               enterKeyHint="send"
               aria-label="Terminal command"
-              className="min-w-0 flex-1 bg-transparent text-[var(--fg)] caret-[var(--fg)] outline-none"
+              placeholder="Type a command"
+              className="min-h-9 min-w-0 flex-1 bg-transparent text-[16px] text-[var(--fg)] caret-[var(--fg)] outline-none placeholder:text-[var(--muted)] sm:text-[14px]"
             />
           </form>
-        </div>
       </div>
 
-      <div className="border-t hairline px-5 py-3 sm:px-8">
+      <div className="max-h-[35%] shrink-0 overflow-y-auto border-t hairline px-4 pt-2 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-8 sm:pt-3">
         <div className="mx-auto flex max-w-[92ch] flex-wrap gap-2">
           {QUICK.filter((c) => COMMAND_NAMES.includes(c)).map((c) => (
             <button
               key={c}
               type="button"
               onClick={() => executeRef.current(c)}
-              className="rounded-full border hairline px-3 py-1 text-[12px] text-[var(--muted)] transition-colors hover:border-[var(--fg)] hover:text-[var(--fg)]"
+              className="min-h-9 rounded-full border hairline px-3 py-1 text-[11px] text-[var(--muted)] transition-colors hover:border-[var(--fg)] hover:text-[var(--fg)] sm:text-[12px]"
             >
               {c}
             </button>

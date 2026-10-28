@@ -8,16 +8,41 @@ export const letterClash: CaseStudy = {
     role: "Design · Frontend · Backend",
     year: "2025",
     stack: ["React", "TypeScript", "Vite", "Zustand", "react-dnd", "Express", "WebSocket", "SQLite"],
-    live: { label: "letter-clash.tools.hmn.md", href: "https://letter-clash.tools.hmn.md" },
   },
+  problem: "How do you make a browser game feel like playing across a table?",
   summary:
     "A real-time multiplayer word game for the Human Made team. Drag tiles onto the board, beat a 20-second turn clock, and play against colleagues from a shared link, with every move showing up on the other side as it happens.",
-  paragraphs: [
-    "Letter Clash is Scrabble for a team that spends its day in browser tabs. A game is a link: sign in with your Human Made account, open the link and you're at the board. There is no lobby to configure and no app to install.",
-    "The interaction that matters is moving a tile. Letters sit on a wooden rack and you drag them onto the board, where they snap into place. While you're placing a word, your opponent sees the tiles appear as faint ghosts, so a turn feels like someone playing across the table.",
-    "Pace is the other design problem. Each turn runs on a 20-second clock, and whatever is left when you submit is added to your score. The bar moves from green to amber to red, and the last few seconds tick quietly. A \"Your Turn!\" prompt brings you back if you were in another tab.",
-    "The server owns the game. It holds the board, the racks, the tile bag, the dictionary check and the scoring, and it validates every move before anyone sees it. Clients only send what they placed. That keeps every view identical, and a refresh puts you back in the same game with your rack. Each turn also draws a bonus letter that multiplies any word it appears in, and some racks come with a blank tile.",
-    "The host can restart a game or remove a player, and the interface keeps track of who's connected. I designed all of it and built it with Claude Code, directing and reviewing the code it wrote: the React front end with react-dnd and Zustand, and the Express, WebSocket and SQLite backend behind it. It runs on the internal tools platform behind Google sign-in. It is currently desktop-only, because the board and rack need the room.",
+  sections: [
+    {
+      title: "Start with a link",
+      paragraphs: [
+        "Letter Clash is Scrabble for a team that spends its day in browser tabs. A game is a link: sign in with your Human Made account, open the link and you're at the board. There is no lobby to configure and no app to install.",
+      ],
+    },
+    {
+      title: "Make the other player visible",
+      paragraphs: [
+        "The interaction that matters is moving a tile. Letters sit on a wooden rack and you drag them onto the board, where they snap into place. While you're placing a word, your opponent sees the tiles appear as faint ghosts, so a turn feels like someone playing across the table.",
+      ],
+    },
+    {
+      title: "Design for pace",
+      paragraphs: [
+        "Pace is the other design problem. Each turn runs on a 20-second clock, and whatever is left when you submit is added to your score. The bar moves from green to amber to red, and the last few seconds tick quietly. A \"Your Turn!\" prompt brings you back if you were in another tab.",
+      ],
+    },
+    {
+      title: "Keep every player on the same board",
+      paragraphs: [
+        "The server owns the game. It holds the board, the racks, the tile bag, the dictionary check and the scoring, and it validates every move before anyone sees it. Clients only send what they placed. That keeps every view identical, and a refresh puts you back in the same game with your rack. Each turn also draws a bonus letter that multiplies any word it appears in, and some racks come with a blank tile.",
+      ],
+    },
+    {
+      title: "What shipped",
+      paragraphs: [
+        "The host can restart a game or remove a player, and the interface keeps track of who's connected. I designed all of it and built it with Claude Code, directing and reviewing the code it wrote: the React front end with react-dnd and Zustand, and the Express, WebSocket and SQLite backend behind it. It runs on the internal tools platform behind Google sign-in. It is currently desktop-only, because the board and rack need the room.",
+      ],
+    },
   ],
   shots: [
     {

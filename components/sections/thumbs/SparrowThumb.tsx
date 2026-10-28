@@ -10,7 +10,7 @@ export function SparrowThumb({ hovered }: { hovered: boolean }) {
       className="relative h-full w-full overflow-hidden"
       style={{ containerType: "inline-size", background: "#1f63c8", color: "#182336", fontFamily: "var(--font-hanken), sans-serif" }}
     >
-      <div className="absolute left-[7%] top-[7%] flex items-center gap-[1.4cqw] text-[2.2cqw] font-semibold tracking-[0.04em] text-white">
+      <div className="absolute left-[6cqw] top-[6cqw] flex items-center gap-[1.4cqw] text-[2.2cqw] font-semibold tracking-[0.04em] text-white">
         <MessageSquare className="size-[3cqw]" strokeWidth={1.7} /> Sparrow
       </div>
 

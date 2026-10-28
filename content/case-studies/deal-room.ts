@@ -11,7 +11,7 @@ export const dealRoom: CaseStudy = {
   },
   problem: "The latest file and the next step were buried in email threads.",
   summary:
-    "A shared client space for Human Made: the current files, the agreed plan, and a clear next step. I designed and built a working prototype that brings the client briefing and the team's publishing workflow into one place.",
+    "A shared client space for Human Made: the current files, the agreed plan, and a clear next step. I designed a working prototype and built it with Claude Code that brings the client briefing and the team's publishing workflow into one place.",
   sections: [
     {
       title: "The brief",

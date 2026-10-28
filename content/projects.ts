@@ -9,13 +9,14 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  // Deal Room is hidden for now; its case study, thumb and shots stay in place.
   {
-    slug: "deal-room",
-    title: "Deal Room",
+    slug: "workbench",
+    title: "Workbench",
     oneLiner:
-      "One link for the latest files and the next agreed step. A working prototype of a shared client space, with a focused client view and publishing tools for the team behind it.",
-    role: "Product design · Frontend",
-    stack: ["React", "TypeScript", "Tailwind", "Vite", "Base UI"],
+      "A shared planning board for the marketing team, built to replace their spreadsheets. A month calendar is home, with a forward view of the year's campaigns, a content calendar by publishing date, and a drafting room for ideas without a date yet.",
+    role: "Design · Frontend · Backend",
+    stack: ["Next.js", "React", "TypeScript", "Tailwind", "SQLite"],
     year: "2026",
   },
   {

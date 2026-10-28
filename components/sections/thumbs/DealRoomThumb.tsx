@@ -10,7 +10,7 @@ export function DealRoomThumb({ hovered }: { hovered: boolean }) {
       className="relative flex h-full w-full items-center justify-center overflow-hidden"
       style={{ containerType: "inline-size", background: "#dce5ed", color: "#17212d", fontFamily: "var(--font-hanken), sans-serif" }}
     >
-      <div className="absolute left-[7%] top-[7%] flex items-center gap-[1.4cqw] text-[2.2cqw] font-semibold tracking-[0.04em]">
+      <div className="absolute left-[6cqw] top-[6cqw] flex items-center gap-[1.4cqw] text-[2.2cqw] font-semibold tracking-[0.04em]">
         <Link2 className="size-[3cqw]" strokeWidth={1.7} />
         Deal Room
       </div>

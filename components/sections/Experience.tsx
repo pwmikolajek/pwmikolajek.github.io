@@ -1,7 +1,7 @@
 import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/Reveal";
 import { experience } from "@/content/experience";
-import { CV_PATH } from "@/lib/cv";
+import { CV_PATH, CV_URL } from "@/lib/cv";
 
 export function Experience() {
   return (
@@ -11,8 +11,8 @@ export function Experience() {
           <div className="flex flex-wrap items-end justify-between gap-6">
             <SectionHeading eyebrow="Experience" title="Where I’ve worked." />
             <a
-              href={CV_PATH}
-              download
+              href={CV_URL}
+              download={CV_PATH.slice(1)}
               className="link font-mono text-[12px] uppercase tracking-[var(--tracking-eyebrow)] text-[var(--muted)] transition-colors hover:text-[var(--fg)]"
             >
               Download CV (PDF)

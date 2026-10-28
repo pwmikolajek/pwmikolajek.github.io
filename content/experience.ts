@@ -9,16 +9,17 @@ export type Role = {
 
 export const experience: Role[] = [
   {
-    title: "Product Designer & Builder",
+    title: "Visual Designer",
     company: "Human Made",
     location: "Matlock, UK",
     from: "Aug 2022",
     to: "Present",
     bullets: [
-      "Sole designer in the agency, designing and shipping in a fast-paced, cross-functional environment.",
-      "Created and maintained the central Figma design space, promoted as the repository for the agency and its product, Altis Cloud.",
-      "Designed UI components and prototypes; built motion-led marketing assets and brochures.",
-      "Designed and helped build a portfolio of internal product tools, several of which are featured on this site.",
+      "Joined as the agency’s only designer and, on my own initiative, grew the role beyond visual design into designing and building internal products end to end (interface, front end and backend) with AI-assisted development in Claude Code.",
+      "Designed and built Sparrow, a PDF review tool in production for the team, with pinned comments, threads resolved in place, and share links to the latest or an exact version (React, PDF.js, TipTap, Express, SQLite).",
+      "Turned the Human Made brand guidelines from a static reference into a suite for people and AI agents: design tokens, editorial voice guidance, an agent skill for Claude Code, Claude.ai, ChatGPT and Slack, and generators for business cards, assets and team diagrams.",
+      "Designed and built Workbench, the marketing team’s planning board, to replace their spreadsheets: a month calendar as home, a forward view of the year’s campaigns, a content calendar by publishing date, and a drafting room for undated ideas (Next.js, SQLite).",
+      "Created and maintained the central Figma design space for the agency and Altis Cloud, and produced motion and marketing assets.",
     ],
   },
   {

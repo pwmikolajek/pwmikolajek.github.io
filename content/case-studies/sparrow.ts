@@ -41,7 +41,7 @@ export const sparrow: CaseStudy = {
     {
       title: "What shipped",
       paragraphs: [
-        "I designed and built the interface and backend: React, PDF.js and TipTap on the front end, with Express, SQLite and file storage behind it. Sparrow runs as an internal tool behind Human Made's Google sign-in. Recent work has gone into making repeat reviews dependable: clearer controls, recoverable drafts, explicit version links and feedback that survives new drafts.",
+        "I designed the interface and backend and built them with Claude Code, directing and reviewing the code it wrote: React, PDF.js and TipTap on the front end, with Express, SQLite and file storage behind it. Sparrow runs as an internal tool behind Human Made's Google sign-in. Recent work has gone into making repeat reviews dependable: clearer controls, recoverable drafts, explicit version links and feedback that survives new drafts.",
       ],
     },
   ],

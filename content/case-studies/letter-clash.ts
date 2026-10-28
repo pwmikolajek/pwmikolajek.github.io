@@ -40,7 +40,7 @@ export const letterClash: CaseStudy = {
     {
       title: "What shipped",
       paragraphs: [
-        "The host can restart a game or remove a player, and the interface keeps track of who's connected. I designed and built all of it: the React front end with react-dnd and Zustand, and the Express, WebSocket and SQLite backend behind it. It runs on the internal tools platform behind Google sign-in. It is currently desktop-only, because the board and rack need the room.",
+        "The host can restart a game or remove a player, and the interface keeps track of who's connected. I designed all of it and built it with Claude Code, directing and reviewing the code it wrote: the React front end with react-dnd and Zustand, and the Express, WebSocket and SQLite backend behind it. It runs on the internal tools platform behind Google sign-in. It is currently desktop-only, because the board and rack need the room.",
       ],
     },
   ],

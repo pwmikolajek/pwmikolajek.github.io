@@ -3,8 +3,10 @@ import { hmBrandGuidelines } from "./hm-brand-guidelines";
 import { dealRoom } from "./deal-room";
 import { sparrow } from "./sparrow";
 import { letterClash } from "./letter-clash";
+import { workbench } from "./workbench";
 
 export const caseStudies: Record<string, CaseStudy | undefined> = {
+  workbench,
   "deal-room": dealRoom,
   "hm-brand-guidelines": hmBrandGuidelines,
   sparrow,

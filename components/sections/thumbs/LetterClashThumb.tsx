@@ -22,7 +22,7 @@ export function LetterClashThumb({ hovered }: { hovered: boolean }) {
       className="relative h-full w-full overflow-hidden"
       style={{ containerType: "inline-size", background: "#e6bc79", color: "#30291f", fontFamily: "var(--font-hanken), sans-serif" }}
     >
-      <div className="absolute left-[7%] top-[7%] flex items-center gap-[1.4cqw] text-[2.2cqw] font-semibold tracking-[0.04em]">
+      <div className="absolute left-[6cqw] top-[6cqw] flex items-center gap-[1.4cqw] text-[2.2cqw] font-semibold tracking-[0.04em]">
         <Grid2X2 className="size-[3cqw]" strokeWidth={1.7} /> Letter Clash
       </div>
 

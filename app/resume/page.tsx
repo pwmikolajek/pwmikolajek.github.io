@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { profile } from "@/content/profile";
 import { experience } from "@/content/experience";
 import { projects } from "@/content/projects";
-import { capabilities, clients, toolsStrip } from "@/content/capabilities";
+import { capabilities, clients, cvSkills, toolsStrip } from "@/content/capabilities";
 
 /**
  * Print source for the downloadable CV (public/Pawel-Mikolajek-CV.pdf).
@@ -124,7 +124,7 @@ export default function ResumePage() {
 
         <section>
           <h2>Skills</h2>
-          {capabilities.map((c) => (
+          {[...capabilities, ...cvSkills].map((c) => (
             <p key={c.title}>
               <strong>{c.title}:</strong> {c.items.join(", ")}
             </p>

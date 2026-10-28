@@ -38,12 +38,17 @@ export const capabilities: Capability[] = [
     items: [
       "React",
       "TypeScript",
-      "Next.js",
       "Tailwind",
       "Live prototypes",
       "Claude Code",
     ],
   },
+];
+
+/** Extra skill lines for the CV only; the site's capability grid stays at three cards. */
+export const cvSkills: { title: string; items: string[] }[] = [
+  { title: "Build", items: ["Node.js", "Express", "SQLite", "WebSocket", "Vite"] },
+  { title: "AI and systems", items: ["Design tokens", "Agent skills", "Claude Code"] },
 ];
 
 export const toolsStrip = [

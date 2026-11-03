@@ -5,6 +5,7 @@ import { profile } from "@/content/profile";
 import { experience } from "@/content/experience";
 import { projects } from "@/content/projects";
 import { capabilities, clients, cvSkills, toolsStrip } from "@/content/capabilities";
+import { testimonials } from "@/content/testimonials";
 
 /**
  * Print source for the downloadable CV (public/Pawel-Mikolajek-CV.pdf).
@@ -39,8 +40,6 @@ export const metadata: Metadata = {
 
 const SITE = "https://pwmikolajek.github.io";
 const bare = (url: string) => url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
-/** The first sentence of a project's one-liner, for a compact entry. */
-const firstSentence = (text: string) => text.match(/^.*?\.(\s|$)/)?.[0].trim() ?? text;
 
 const css = `
 @page { size: A4; margin: 15mm 17mm 14mm; }
@@ -98,6 +97,11 @@ const css = `
 .cv .skills { display: grid; grid-template-columns: 30mm 1fr; column-gap: 8pt; row-gap: 3pt; }
 .cv .skills dt { font-weight: 600; }
 .cv .skills dd { margin: 0; }
+
+.cv .quote { margin: 0; }
+.cv .quote + .quote { margin-top: 8pt; }
+.cv .quote blockquote { margin: 0; }
+.cv .quote figcaption { color: var(--muted); font-size: 8.5pt; margin-top: 2pt; }
 `;
 
 /** A section whose heading stays on the same page as its first entry. */
@@ -181,7 +185,7 @@ export default function ResumePage() {
                 {p.year ? <span className="when">{p.year}</span> : null}
               </div>
               <p className="what">
-                {firstSentence(p.oneLiner)} <span className="stack">{p.stack.join(", ")}.</span>
+                {p.oneLiner} <span className="stack">{p.stack.join(", ")}.</span>
               </p>
             </div>
           ))}
@@ -200,6 +204,17 @@ export default function ResumePage() {
 
         <Section title="Worked with">
           <p>{clients.map((c) => c.name).join(", ")}</p>
+        </Section>
+
+        <Section title="Kind words">
+          {testimonials.map((t) => (
+            <figure key={t.name} className="quote entry">
+              <blockquote>“{t.quote}”</blockquote>
+              <figcaption>
+                {t.name}, {t.role}, {t.company}
+              </figcaption>
+            </figure>
+          ))}
         </Section>
       </main>
     </div>
